@@ -46,7 +46,7 @@ public class Arena {
 
     public void resetArena() {
         for (Chunk chunk : world.getInstance().getChunks()){
-            world.getInstance().unloadChunk(chunk);
+            world.getInstance();
         }
     }
 
