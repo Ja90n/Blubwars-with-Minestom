@@ -1,5 +1,6 @@
 package com.Ja90n;
 
+import com.Ja90n.command.Gamemode;
 import com.Ja90n.command.Restart;
 import com.Ja90n.command.Test;
 import com.Ja90n.events.EntityAttack;
@@ -60,6 +61,7 @@ public class Blubwars {
     private static void initiateCommands(CommandManager commandManager){
         commandManager.register(new Test(arena));
         commandManager.register(new Restart());
+        commandManager.register(new Gamemode());
         commandManager.setUnknownCommandCallback((sender, c) -> sender.sendMessage("Command not found."));
 
         logger.info("Commands initiated!");

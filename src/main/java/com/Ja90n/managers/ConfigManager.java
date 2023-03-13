@@ -1,14 +1,17 @@
 package com.Ja90n.managers;
 
+import com.Ja90n.instances.ArenaConfig;
 import com.Ja90n.instances.Config;
 import com.google.gson.Gson;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
+import net.minestom.server.coordinate.Pos;
 
 import java.io.*;
 
 public class ConfigManager {
 
     private Config config;
+    private ArenaConfig arenaConfig;
 
     public ConfigManager(ComponentLogger logger) throws IOException {
 
@@ -30,9 +33,28 @@ public class ConfigManager {
             logger.info("Config file created");
         }
 
+        File arenafile = new File("arenaconfig.json");
+        if (arenafile.exists()){
+            logger.info("Arena config file found!");
+        } else {
+            arenafile.createNewFile();
+
+            ArenaConfig arenaConfig = new ArenaConfig();
+            arenaConfig.setDefault();
+
+            FileWriter writer = new FileWriter(arenafile);
+            String json = gson.toJson(arenaConfig);
+            writer.write(json);
+            writer.close();
+
+            logger.info("Arena config file created");
+        }
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
         config = gson.fromJson(reader, Config.class);
+
+        BufferedReader arenareader = new BufferedReader(new FileReader(arenafile));
+        arenaConfig = gson.fromJson(arenareader, ArenaConfig.class);
     }
 
     public String getHost() {
@@ -49,6 +71,26 @@ public class ConfigManager {
 
     public boolean getVelocity() {
         return config.getVelocity();
+    }
+
+    public Pos getLobbyLocation() {
+        return arenaConfig.getLobbyLocation();
+    }
+
+    public Pos getBlueTeamSpawn() {
+        return arenaConfig.getBlueTeamSpawn();
+    }
+
+    public Pos getGreenTeamSpawn() {
+        return arenaConfig.getGreenTeamSpawn();
+    }
+
+    public Pos getRedTeamSpawn() {
+        return arenaConfig.getRedTeamSpawn();
+    }
+
+    public Pos getYellowTeamSpawn() {
+        return arenaConfig.getYellowTeamSpawn();
     }
 
 

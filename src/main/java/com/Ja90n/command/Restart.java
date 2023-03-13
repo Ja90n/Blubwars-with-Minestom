@@ -7,6 +7,9 @@ import net.minestom.server.adventure.audience.Audiences;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.entity.Player;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+
 public class Restart extends Command {
 
     public Restart() {
@@ -19,7 +22,8 @@ public class Restart extends Command {
                     for (Player target : MinecraftServer.getConnectionManager().getOnlinePlayers()){
                         target.kick(Component.text("Server is restarting", NamedTextColor.RED));
                     }
-                    MinecraftServer.stopCleanly();
+                    CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS)
+                            .execute(MinecraftServer::stopCleanly);
                 }
             }
         });
