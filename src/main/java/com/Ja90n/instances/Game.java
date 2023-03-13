@@ -9,6 +9,7 @@ import net.minestom.server.instance.block.Block;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.UUID;
 
 public class Game {
 
@@ -16,7 +17,7 @@ public class Game {
     The game class is where the actual game data is being held. I.e. the teams and the droppers etc.
     */
 
-    private HashMap<Player, Team> teamPlayerHashMap;
+    private HashMap<UUID, Team> teamPlayerHashMap;
     private final Instance world;
 
     public Game(Instance world){
@@ -40,7 +41,7 @@ public class Game {
         playerAmountPerTeam.put(Team.GREEN, 0);
         playerAmountPerTeam.put(Team.BLUE, 0);
         playerAmountPerTeam.put(Team.YELLOW, 0);
-        for (Player player1 : teamPlayerHashMap.keySet()){
+        for (UUID player1 : teamPlayerHashMap.keySet()){
             int playerAmount = playerAmountPerTeam.get(teamPlayerHashMap.get(player1)) + 1;
             playerAmountPerTeam.put(teamPlayerHashMap.get(player1), playerAmount);
         }
@@ -51,12 +52,12 @@ public class Game {
                 lowestTeam = team;
             }
         }
-        teamPlayerHashMap.put(player, lowestTeam);
+        teamPlayerHashMap.put(player.getUuid(), lowestTeam);
 
         player.sendMessage("You have joined the game!");
     }
 
-    public HashMap<Player, Team> getTeamPlayerHashMap() {
+    public HashMap<UUID, Team> getTeamPlayerHashMap() {
         return teamPlayerHashMap;
     }
 }

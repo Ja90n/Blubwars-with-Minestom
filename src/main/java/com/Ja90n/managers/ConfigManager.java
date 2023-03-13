@@ -93,6 +93,14 @@ public class ConfigManager {
         return arenaConfig.getYellowTeamSpawn();
     }
 
+    public int getCountdownSeconds() {
+        return arenaConfig.getCountdownSeconds();
+    }
+
+    public int getRequiredPlayers() {
+        return arenaConfig.getRequiredPlayers();
+    }
+
 
 
 }

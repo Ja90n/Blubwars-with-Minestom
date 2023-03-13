@@ -1,5 +1,6 @@
 package com.Ja90n.runnables;
 
+import com.Ja90n.enums.GameState;
 import com.Ja90n.instances.Arena;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.timer.SchedulerManager;
@@ -18,12 +19,12 @@ public class GameCountdown {
     }
 
     public void start(){
-        // Arena state
+        arena.setGameState(GameState.RECRUITING);
 
         task = MinecraftServer.getSchedulerManager().scheduleTask(() -> {
             if (countdownSeconds == 0){
+                arena.start();
                 task.cancel();
-                // start arena
                 return;
             }
 
@@ -34,6 +35,7 @@ public class GameCountdown {
             //arena.sendTitle(ChatColor.GRAY + "Game is starting in ", ChatColor.LIGHT_PURPLE.toString() + countdownSeconds + " second" + (countdownSeconds == 1 ? "" : "s") + ".");
 
             countdownSeconds--;
+
         },TaskSchedule.tick(1), TaskSchedule.tick(20));
     }
 }

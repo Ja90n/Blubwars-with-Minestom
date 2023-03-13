@@ -10,6 +10,8 @@ import com.Ja90n.events.PlayerJoin;
 import com.Ja90n.instances.Arena;
 import com.Ja90n.instances.World;
 import com.Ja90n.managers.ConfigManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.CommandManager;
@@ -36,7 +38,7 @@ public class Blubwars {
         configManager = new ConfigManager(logger);
 
         world = new World();
-        arena = new Arena(configManager.getPort(),"Temple",world);
+        arena = new Arena(configManager.getPort(),"Temple",world,configManager);
 
         initiateEvents(MinecraftServer.getGlobalEventHandler());
         initiateCommands(MinecraftServer.getCommandManager());
@@ -52,7 +54,7 @@ public class Blubwars {
     private static void initiateEvents(GlobalEventHandler globalEventHandler){
         new EntityAttack(globalEventHandler);
         new ItemDrop(globalEventHandler);
-        new PlayerJoin(globalEventHandler, world.getInstance());
+        new PlayerJoin(globalEventHandler, world.getInstance(), arena);
         new PlayerDeath(globalEventHandler);
 
         logger.info("Events initiated!");
@@ -62,9 +64,12 @@ public class Blubwars {
         commandManager.register(new Test(arena));
         commandManager.register(new Restart());
         commandManager.register(new Gamemode());
-        commandManager.setUnknownCommandCallback((sender, c) -> sender.sendMessage("Command not found."));
+        commandManager.setUnknownCommandCallback((sender, c) -> sender.sendMessage(Component.text("Command not found.", NamedTextColor.RED)));
 
         logger.info("Commands initiated!");
     }
 
+    public static ConfigManager getConfigManager() {
+        return configManager;
+    }
 }

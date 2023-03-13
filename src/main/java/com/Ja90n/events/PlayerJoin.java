@@ -1,5 +1,6 @@
 package com.Ja90n.events;
 
+import com.Ja90n.instances.Arena;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.event.GlobalEventHandler;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 public class PlayerJoin {
 
-    public PlayerJoin(GlobalEventHandler globalEventHandler, Instance world) {
+    public PlayerJoin(GlobalEventHandler globalEventHandler, Instance world, Arena arena) {
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             event.setSpawningInstance(world);
             if (event.getPlayer().getUuid().equals(UUID.fromString("f8788f7c-7cd5-44ed-ab6f-aad79d7e5fc7"))){
@@ -23,6 +24,7 @@ public class PlayerJoin {
         globalEventHandler.addListener(PlayerSpawnEvent.class, event -> {
             event.getPlayer().teleport(new Pos(0.5,103,0.5));
             event.getPlayer().setGameMode(GameMode.ADVENTURE);
+            arena.addPlayer(event.getPlayer());
         });
     }
 }
