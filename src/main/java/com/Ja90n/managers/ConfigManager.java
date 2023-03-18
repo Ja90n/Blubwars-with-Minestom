@@ -1,5 +1,6 @@
 package com.Ja90n.managers;
 
+import com.Ja90n.enums.Team;
 import com.Ja90n.instances.ArenaConfig;
 import com.Ja90n.instances.Config;
 import com.google.gson.Gson;
@@ -75,23 +76,7 @@ public class ConfigManager {
 
     public Pos getLobbyLocation() {
         return arenaConfig.getLobbyLocation();
-    }
-
-    public Pos getBlueTeamSpawn() {
-        return arenaConfig.getBlueTeamSpawn();
-    }
-
-    public Pos getGreenTeamSpawn() {
-        return arenaConfig.getGreenTeamSpawn();
-    }
-
-    public Pos getRedTeamSpawn() {
-        return arenaConfig.getRedTeamSpawn();
-    }
-
-    public Pos getYellowTeamSpawn() {
-        return arenaConfig.getYellowTeamSpawn();
-    }
+    };
 
     public int getCountdownSeconds() {
         return arenaConfig.getCountdownSeconds();
@@ -101,6 +86,27 @@ public class ConfigManager {
         return arenaConfig.getRequiredPlayers();
     }
 
-
+    public Pos getTeamSpawn(Team team){
+        switch (team){
+            case SPECTATOR -> {
+                return arenaConfig.getLobbyLocation();
+            }
+            case RED -> {
+                return arenaConfig.getRedTeamSpawn();
+            }
+            case BLUE -> {
+                return arenaConfig.getBlueTeamSpawn();
+            }
+            case YELLOW -> {
+                return arenaConfig.getYellowTeamSpawn();
+            }
+            case GREEN -> {
+                return arenaConfig.getGreenTeamSpawn();
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
 
 }

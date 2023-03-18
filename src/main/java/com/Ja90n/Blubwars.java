@@ -52,7 +52,7 @@ public class Blubwars {
     }
 
     private static void initiateEvents(GlobalEventHandler globalEventHandler){
-        new EntityAttack(globalEventHandler);
+        new EntityAttack(globalEventHandler, arena);
         new ItemDrop(globalEventHandler);
         new PlayerJoin(globalEventHandler, world.getInstance(), arena);
         new PlayerDeath(globalEventHandler);

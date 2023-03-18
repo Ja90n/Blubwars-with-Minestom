@@ -7,7 +7,6 @@ public class ArenaConfig {
     private int requiredPlayers;
     private int countdownSeconds;
 
-
     private Pos lobbyLocation;
     private Pos redTeamSpawn;
     private Pos greenTeamSpawn;

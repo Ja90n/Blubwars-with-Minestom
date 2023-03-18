@@ -1,7 +1,9 @@
 package com.Ja90n.instances;
 
 import com.Ja90n.enums.Team;
+import com.Ja90n.managers.ConfigManager;
 import net.kyori.adventure.text.Component;
+import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.instance.Instance;
@@ -19,17 +21,24 @@ public class Game {
 
     private HashMap<UUID, Team> teamPlayerHashMap;
     private final Instance world;
+    private final ConfigManager configManager;
 
-    public Game(Instance world){
+    public Game(Instance world, ConfigManager configManager){
+        teamPlayerHashMap = new HashMap<>();
         this.world = world;
+        this.configManager = configManager;
     }
 
     public void start() {
-
         Cuboid cuboid = new Cuboid(new Pos(12,110,12),new Pos(-12,100,-12),world);
         for (Iterator<Pos> it = cuboid.posIterator(); it.hasNext(); ) {
             Pos block = it.next();
             world.setBlock(block, Block.AIR);
+        }
+
+        for (UUID uuid : teamPlayerHashMap.keySet()){
+            Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
+            player.teleport(configManager.getTeamSpawn(teamPlayerHashMap.get(uuid)));
         }
     }
 

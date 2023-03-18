@@ -3,6 +3,8 @@ package com.Ja90n.instances;
 import com.Ja90n.enums.GameState;
 import com.Ja90n.managers.ConfigManager;
 import com.Ja90n.runnables.GameCountdown;
+import net.kyori.adventure.text.TextComponent;
+import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.instance.Chunk;
@@ -39,7 +41,7 @@ public class Arena {
         players = new ArrayList<>();
         countdown = new GameCountdown(this, configManager.getCountdownSeconds());
 
-        game = new Game(world.getInstance());
+        game = new Game(world.getInstance(), configManager);
     }
 
     public void addPlayer(Player player) {
@@ -55,6 +57,20 @@ public class Arena {
         game.addPlayer(player);
     }
 
+    public void sendTitle(TextComponent title1, TextComponent title2){
+        for (UUID uuid : players){
+            Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
+            
+        }
+    }
+
+    public void sendMessage(TextComponent textComponent){
+        for (UUID uuid : players){
+            Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
+            player.sendMessage(textComponent);
+        }
+    }
+
     public void start() {
         game.start();
     }
@@ -65,6 +81,10 @@ public class Arena {
 
     public void resetArena() {
 
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 
     public World getWorld() {
