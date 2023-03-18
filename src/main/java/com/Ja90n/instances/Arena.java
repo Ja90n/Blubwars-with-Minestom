@@ -4,6 +4,7 @@ import com.Ja90n.enums.GameState;
 import com.Ja90n.managers.ConfigManager;
 import com.Ja90n.runnables.GameCountdown;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.title.Title;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
@@ -60,7 +61,8 @@ public class Arena {
     public void sendTitle(TextComponent title1, TextComponent title2){
         for (UUID uuid : players){
             Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
-            
+            Title title = Title.title(title1,title2);
+            player.showTitle(title);
         }
     }
 

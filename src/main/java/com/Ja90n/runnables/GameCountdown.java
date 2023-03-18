@@ -26,6 +26,7 @@ public class GameCountdown {
         task = MinecraftServer.getSchedulerManager().scheduleTask(() -> {
             if (countdownSeconds == 0){
                 arena.start();
+                arena.sendTitle(Component.text("Game has started!",NamedTextColor.WHITE), Component.text("Good luck!", NamedTextColor.LIGHT_PURPLE));
                 task.cancel();
                 return;
             }
@@ -34,7 +35,7 @@ public class GameCountdown {
                 arena.sendMessage(Component.text("Game is starting in ", NamedTextColor.WHITE).append(Component.text(countdownSeconds, NamedTextColor.LIGHT_PURPLE)));
             }
 
-            //arena.sendTitle(ChatColor.GRAY + "Game is starting in ", ChatColor.LIGHT_PURPLE.toString() + countdownSeconds + " second" + (countdownSeconds == 1 ? "" : "s") + ".");
+            arena.sendTitle(Component.text("Game is starting in",NamedTextColor.WHITE), Component.text(countdownSeconds + " second" + (countdownSeconds == 1 ? "" : "s") + ".", NamedTextColor.LIGHT_PURPLE));
 
             countdownSeconds--;
 
