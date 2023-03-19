@@ -1,6 +1,6 @@
 package com.Ja90n.managers;
 
-import com.Ja90n.enums.Team;
+import com.Ja90n.enums.TeamType;
 import com.Ja90n.instances.ArenaConfig;
 import com.Ja90n.instances.Config;
 import com.google.gson.Gson;
@@ -86,8 +86,8 @@ public class ConfigManager {
         return arenaConfig.getRequiredPlayers();
     }
 
-    public Pos getTeamSpawn(Team team){
-        switch (team){
+    public Pos getTeamSpawn(TeamType teamType){
+        switch (teamType){
             case SPECTATOR -> {
                 return arenaConfig.getLobbyLocation();
             }

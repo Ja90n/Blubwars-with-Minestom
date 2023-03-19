@@ -3,10 +3,7 @@ package com.Ja90n;
 import com.Ja90n.command.Gamemode;
 import com.Ja90n.command.Restart;
 import com.Ja90n.command.Test;
-import com.Ja90n.events.EntityAttack;
-import com.Ja90n.events.ItemDrop;
-import com.Ja90n.events.PlayerDeath;
-import com.Ja90n.events.PlayerJoin;
+import com.Ja90n.events.*;
 import com.Ja90n.instances.Arena;
 import com.Ja90n.instances.World;
 import com.Ja90n.managers.ConfigManager;
@@ -16,10 +13,7 @@ import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.CommandManager;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.velocity.VelocityProxy;
-import net.minestom.server.message.Messenger;
-import net.minestom.server.permission.PermissionHandler;
 
 import java.io.IOException;
 
@@ -53,9 +47,10 @@ public class Blubwars {
 
     private static void initiateEvents(GlobalEventHandler globalEventHandler){
         new EntityAttack(globalEventHandler, arena);
-        new ItemDrop(globalEventHandler);
+        new ItemEvents(globalEventHandler);
         new PlayerJoin(globalEventHandler, world.getInstance(), arena);
-        new PlayerDeath(globalEventHandler);
+        new PlayerDeath(globalEventHandler, arena, configManager);
+        new PlayerBlockEvents(globalEventHandler,arena);
 
         logger.info("Events initiated!");
     }

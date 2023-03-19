@@ -8,7 +8,6 @@ import net.kyori.adventure.title.Title;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
-import net.minestom.server.instance.Chunk;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -42,7 +41,7 @@ public class Arena {
         players = new ArrayList<>();
         countdown = new GameCountdown(this, configManager.getCountdownSeconds());
 
-        game = new Game(world.getInstance(), configManager);
+        game = new Game(world.getInstance(), configManager, this);
     }
 
     public void addPlayer(Player player) {
@@ -91,5 +90,13 @@ public class Arena {
 
     public World getWorld() {
         return world;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public ArrayList<UUID> getPlayers() {
+        return players;
     }
 }

@@ -1,7 +1,11 @@
 package com.Ja90n.instances;
 
-import com.Ja90n.enums.Team;
+import com.Ja90n.enums.GameState;
+import com.Ja90n.enums.TeamType;
+import com.Ja90n.managers.BlockManager;
 import com.Ja90n.managers.ConfigManager;
+import com.Ja90n.managers.TeamManager;
+import com.Ja90n.runnables.ResetCountdown;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
@@ -19,12 +23,16 @@ public class Game {
     The game class is where the actual game data is being held. I.e. the teams and the droppers etc.
     */
 
-    private HashMap<UUID, Team> teamPlayerHashMap;
     private final Instance world;
     private final ConfigManager configManager;
+    private final BlockManager blockManager;
+    private final TeamManager teamManager;
+    private final Arena arena;
 
-    public Game(Instance world, ConfigManager configManager){
-        teamPlayerHashMap = new HashMap<>();
+    public Game(Instance world, ConfigManager configManager, Arena arena){
+        blockManager = new BlockManager();
+        teamManager = new TeamManager();
+        this.arena = arena;
         this.world = world;
         this.configManager = configManager;
     }
@@ -36,37 +44,31 @@ public class Game {
             world.setBlock(block, Block.AIR);
         }
 
-        for (UUID uuid : teamPlayerHashMap.keySet()){
+        for (UUID uuid : arena.getPlayers()){
             Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
-            player.teleport(configManager.getTeamSpawn(teamPlayerHashMap.get(uuid)));
+            player.teleport(configManager.getTeamSpawn(teamManager.getTeam(player)));
         }
+
+        arena.setGameState(GameState.LIVE);
+    }
+
+    public void end() {
+        new ResetCountdown();
     }
 
     public void addPlayer(Player player){
 
-        // Logic to add the player to the team with the least players
-        HashMap<Team, Integer> playerAmountPerTeam = new HashMap<>();
-        playerAmountPerTeam.put(Team.RED, 0);
-        playerAmountPerTeam.put(Team.GREEN, 0);
-        playerAmountPerTeam.put(Team.BLUE, 0);
-        playerAmountPerTeam.put(Team.YELLOW, 0);
-        for (UUID player1 : teamPlayerHashMap.keySet()){
-            int playerAmount = playerAmountPerTeam.get(teamPlayerHashMap.get(player1)) + 1;
-            playerAmountPerTeam.put(teamPlayerHashMap.get(player1), playerAmount);
-        }
+        teamManager.addPlayer(player, teamManager.getLowerstTeam());
 
-        Team lowestTeam = Team.RED;
-        for (Team team : playerAmountPerTeam.keySet()){
-            if (playerAmountPerTeam.get(team) < playerAmountPerTeam.get(lowestTeam)){
-                lowestTeam = team;
-            }
-        }
-        teamPlayerHashMap.put(player.getUuid(), lowestTeam);
-
+        player.sendMessage(Component.text("You have been added to the " + teamManager.getTeam(player).getDisplay().content() + " team!"));
         player.sendMessage("You have joined the game!");
     }
 
-    public HashMap<UUID, Team> getTeamPlayerHashMap() {
-        return teamPlayerHashMap;
+    public TeamManager getTeamManager() {
+        return teamManager;
+    }
+
+    public BlockManager getBlockManager() {
+        return blockManager;
     }
 }

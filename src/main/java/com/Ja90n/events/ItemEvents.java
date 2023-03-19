@@ -6,9 +6,9 @@ import net.minestom.server.event.item.ItemDropEvent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.utils.time.TimeUnit;
 
-public class ItemDrop {
+public class ItemEvents {
 
-    public ItemDrop(GlobalEventHandler globalEventHandler){
+    public ItemEvents(GlobalEventHandler globalEventHandler){
         globalEventHandler.addListener(ItemDropEvent.class, event -> {
             ItemStack item = event.getItemStack();
 
