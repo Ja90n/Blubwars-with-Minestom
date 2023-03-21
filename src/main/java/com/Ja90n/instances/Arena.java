@@ -55,6 +55,7 @@ public class Arena {
         }
 
         game.addPlayer(player);
+
     }
 
     public void sendTitle(TextComponent title1, TextComponent title2){

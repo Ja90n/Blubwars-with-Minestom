@@ -15,7 +15,9 @@ public class TeamManager {
     public TeamManager() {
         teams = new ArrayList<>();
         for (TeamType teamType1 : TeamType.values()){
-            teams.add(new Team(teamType1));
+            if (!teamType1.equals(TeamType.SPECTATOR)) {
+                teams.add(new Team(teamType1));
+            }
         }
     }
 

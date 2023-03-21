@@ -9,6 +9,7 @@ import com.Ja90n.runnables.ResetCountdown;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
+import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
@@ -46,6 +47,9 @@ public class Game {
 
         for (UUID uuid : arena.getPlayers()){
             Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
+            player.setGameMode(GameMode.SURVIVAL);
+            player.closeInventory();
+            player.clearEffects();
             player.teleport(configManager.getTeamSpawn(teamManager.getTeam(player)));
         }
 
@@ -57,11 +61,19 @@ public class Game {
     }
 
     public void addPlayer(Player player){
+        if (arena.getGameState().equals(GameState.COUNTDOWN) || arena.getGameState().equals(GameState.RECRUITING)) {
+            teamManager.addPlayer(player, teamManager.getLowerstTeam());
 
-        teamManager.addPlayer(player, teamManager.getLowerstTeam());
-
-        player.sendMessage(Component.text("You have been added to the " + teamManager.getTeam(player).getDisplay().content() + " team!"));
-        player.sendMessage("You have joined the game!");
+            player.sendMessage(Component.text("You have been added to the ")
+                    .append(teamManager.getTeam(player).getDisplay())
+                    .append(Component.text(" team!")));
+            player.sendMessage("You have joined the game!");
+        } else if (arena.getGameState().equals(GameState.LIVE)){
+            teamManager.addPlayer(player, TeamType.SPECTATOR);
+            player.sendMessage("You have joined the game while it was active so you are now a spectator!");
+        } else {
+            player.kick("Game was ending");
+        }
     }
 
     public TeamManager getTeamManager() {
