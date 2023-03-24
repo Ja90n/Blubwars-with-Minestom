@@ -25,6 +25,13 @@ public class Restart extends Command {
                     CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS)
                             .execute(MinecraftServer::stopCleanly);
                 }
+            } else {
+                Audiences.players().sendMessage(Component.text("Server is restarting!", NamedTextColor.RED));
+                for (Player target : MinecraftServer.getConnectionManager().getOnlinePlayers()){
+                    target.kick(Component.text("Server is restarting", NamedTextColor.RED));
+                }
+                CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS)
+                        .execute(MinecraftServer::stopCleanly);
             }
         });
     }
