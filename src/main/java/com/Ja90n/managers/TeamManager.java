@@ -21,6 +21,7 @@ public class TeamManager {
         }
     }
 
+
     public TeamType getTeam(Player player) {
         for (Team team : teams) {
             if (team.containsPlayer(player)) {
@@ -49,5 +50,9 @@ public class TeamManager {
             }
         }
         return returnTeam.getTeamType();
+    }
+
+    public ArrayList<Team> getTeams() {
+        return teams;
     }
 }

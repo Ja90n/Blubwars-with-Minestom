@@ -9,8 +9,7 @@ import com.Ja90n.runnables.ResetCountdown;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
-import net.minestom.server.entity.GameMode;
-import net.minestom.server.entity.Player;
+import net.minestom.server.entity.*;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
 
@@ -51,6 +50,13 @@ public class Game {
             player.closeInventory();
             player.clearEffects();
             player.teleport(configManager.getTeamSpawn(teamManager.getTeam(player)));
+        }
+
+        for (Team team : teamManager.getTeams()) {
+            EntityCreature entityCreature = new EntityCreature(EntityType.CAT);
+            entityCreature.setInstance(world, configManager.getTeamSpawn(team.getTeamType()));
+
+            team.setCat(entityCreature);
         }
 
         arena.setGameState(GameState.LIVE);

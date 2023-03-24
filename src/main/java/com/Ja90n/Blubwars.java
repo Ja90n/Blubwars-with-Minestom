@@ -48,9 +48,10 @@ public class Blubwars {
     private static void initiateEvents(GlobalEventHandler globalEventHandler){
         new EntityAttack(globalEventHandler, arena);
         new ItemEvents(globalEventHandler);
-        new PlayerJoin(globalEventHandler, world.getInstance(), arena);
+        new PlayerJoin(globalEventHandler, world.getInstance(), arena,configManager);
         new PlayerDeath(globalEventHandler, arena, configManager);
         new PlayerBlockEvents(globalEventHandler,arena);
+        new InteractEntity(globalEventHandler);
 
         logger.info("Events initiated!");
     }
