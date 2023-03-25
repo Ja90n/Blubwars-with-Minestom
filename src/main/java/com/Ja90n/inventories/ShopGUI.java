@@ -1,13 +1,16 @@
 package com.Ja90n.inventories;
 
+import com.Ja90n.enums.ShopItems;
 import com.Ja90n.enums.TeamType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.minestom.server.entity.Player;
 import net.minestom.server.inventory.Inventory;
 import net.minestom.server.inventory.InventoryType;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopGUI {
@@ -39,21 +42,25 @@ public class ShopGUI {
     private void setContent() {
         setBlocks();
         setWeapons();
+        setTools();
     }
 
     private void setBlocks() {
         // Blocks
         setItem(11, team.getDisplay().append(Component.text(" wool")), team.getWool());
         setItem(20, team.getDisplay().append(Component.text(" clay")), team.getClay());
-        setItem(29,Component.text("Wood",NamedTextColor.GOLD),Material.SPRUCE_PLANKS);
-
+        setItem(29,ShopItems.WOOD);
     }
 
     private void setWeapons() {
         // Swords
-        setItem(10, Component.text("Stone sword", NamedTextColor.DARK_GRAY), Material.STONE_SWORD);
-        setItem(19, Component.text("Iron sword", NamedTextColor.GRAY), Material.IRON_SWORD);
-        setItem(28, Component.text("Diamond sword", NamedTextColor.BLUE), Material.DIAMOND_SWORD);
+        setItem(10,ShopItems.STONE_SWORD);
+        setItem(19,ShopItems.DIAMOND_SWORD);
+        setItem(28,ShopItems.DIAMOND_SWORD);
+    }
+
+    private void setTools() {
+        setItem(13,ShopItems.SHEARS);
     }
 
     private void setEvent() {
@@ -62,34 +69,111 @@ public class ShopGUI {
 
             switch (slot) {
                 case 10:
-                    player.getInventory().addItemStack(itemStackCreator(Component.text("Stone sword", NamedTextColor.DARK_GRAY), Material.STONE_SWORD));
+                    addPlayerItem(ShopItems.STONE_SWORD, player);
+                    break;
+                case 11:
+                    addPlayerItem(ShopItems.WOOL,player);
+                    break;
+                case 13:
+                    addPlayerItem(ShopItems.SHEARS,player);
                     break;
                 case 19:
-                    player.getInventory().addItemStack(itemStackCreator(Component.text("Iron sword", NamedTextColor.GRAY), Material.IRON_SWORD));
+                    addPlayerItem(ShopItems.IRON_SWORD, player);
+                    break;
+                case 20:
+                    addPlayerItem(ShopItems.CLAY, player);
                     break;
                 case 28:
-                    player.getInventory().addItemStack(itemStackCreator(Component.text("Diamond sword", NamedTextColor.BLUE),Material.DIAMOND_SWORD));
+                    addPlayerItem(ShopItems.DIAMOND_SWORD, player);
+                    break;
+                case 29:
+                    addPlayerItem(ShopItems.WOOD,player);
                     break;
             }
 
         });
     }
 
-    private ItemStack itemStackCreator(Component name, Material material) {
-        return ItemStack.builder(material).displayName(name).build();
-    }
+    private void addPlayerItem(ShopItems shopItem, Player player) {
+        int amount = 0;
+        for (int i = 0; i < player.getInventory().getSize(); i++) {
+            ItemStack itemStack = player.getInventory().getItemStack(i);
+            if (itemStack.material().equals(shopItem.getCost().getMaterial())) {
+                if (shopItem.getAmount() <= itemStack.amount()) {
+                    ItemStack item = ItemStack.builder(
+                                    itemStack.material())
+                            .displayName(itemStack.getDisplayName())
+                            .amount(itemStack.amount() - shopItem.getAmount()).build();
 
-    private ItemStack itemStackCreator(Component name, Material material, List<Component> lore) {
-        if (lore.isEmpty()) {
-            return ItemStack.builder(material).displayName(name).build();
-        } else {
-            return ItemStack.builder(material).displayName(name).lore(lore).build();
+                    player.getInventory().setItemStack(i, item);
+                    addItem(shopItem,player);
+                    return;
+                }
+                amount = amount + itemStack.amount();
+            }
+        }
+
+        if (!(amount >= shopItem.getAmount())) {
+            player.sendMessage(Component.text("You don't have enough to buy this item!", NamedTextColor.RED));
+            return;
+        }
+
+        amount = shopItem.getAmount();
+
+        for (int i = 0; i < player.getInventory().getSize(); i++) {
+            ItemStack itemStack = player.getInventory().getItemStack(i);
+            if (itemStack.material().equals(shopItem.getCost().getMaterial())) {
+                amount = amount - itemStack.amount();
+                if (amount <= 0) {
+                    amount = amount*-1;
+
+                    ItemStack item = ItemStack.builder(
+                                    itemStack.material())
+                            .displayName(itemStack.getDisplayName())
+                            .amount(amount).build();
+
+                    player.getInventory().setItemStack(i, item);
+                    addItem(shopItem,player);
+                    return;
+                }
+                player.getInventory().setItemStack(i,ItemStack.AIR);
+            }
+
         }
     }
 
+    private void addItem(ShopItems shopItems, Player player) {
+        if (shopItems.equals(ShopItems.WOOL)) {
+            player.getInventory().addItemStack(getItem(team.getDisplay().append(Component.text(" wool")),team.getWool()));
+            return;
+        }
+
+        if (shopItems.equals(ShopItems.CLAY)) {
+            player.getInventory().addItemStack(getItem(team.getDisplay().append(Component.text(" clay")),team.getClay()));
+            return;
+        }
+
+        player.getInventory().addItemStack(shopItems.getItemStack());
+    }
+
     private void setItem(int slot, Component name, Material material) {
-        ItemStack itemStack = ItemStack.builder(material)
-                .displayName(name).build();
+        inventory.setItemStack(slot, getItem(name,material));
+    }
+
+    private ItemStack getItem(Component name, Material material) {
+        return ItemStack.builder(material).displayName(name).build();
+    }
+
+    private void setItem(int slot, ShopItems shopItems) {
+        List<Component> lore = new ArrayList<>();
+        Component component = Component.text("Cost: ",NamedTextColor.BLUE).append(Component.text(shopItems.getAmount(),NamedTextColor.WHITE).append(Component.text(" ").append(shopItems.getCost().getComponent())));
+        lore.add(component);
+
+        ItemStack itemStack = ItemStack.builder(shopItems.getItemStack().material())
+                .displayName(shopItems.getItemStack().getDisplayName())
+                .lore(lore)
+                .build();
+
         inventory.setItemStack(slot, itemStack);
     }
 
