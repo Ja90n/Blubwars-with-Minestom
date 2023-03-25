@@ -51,7 +51,7 @@ public class Blubwars {
         new PlayerJoin(globalEventHandler, world.getInstance(), arena);
         new PlayerDeath(globalEventHandler, arena);
         new PlayerBlockEvents(globalEventHandler,arena);
-        new InteractEntity(globalEventHandler);
+        new InteractEntity(globalEventHandler,arena);
         new EntityDeath(globalEventHandler,arena);
 
         logger.info("Events initiated!");
@@ -64,6 +64,10 @@ public class Blubwars {
         commandManager.setUnknownCommandCallback((sender, c) -> sender.sendMessage(Component.text("Command not found.", NamedTextColor.RED)));
 
         logger.info("Commands initiated!");
+    }
+
+    public static World getWorld() {
+        return world;
     }
 
     public static ConfigManager getConfigManager() {

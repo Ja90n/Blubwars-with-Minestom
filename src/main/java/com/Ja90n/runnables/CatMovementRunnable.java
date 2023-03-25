@@ -24,6 +24,10 @@ public class CatMovementRunnable {
                 return;
             }
 
+            if (target == null) {
+                return;
+            }
+
             // If it is a cat
             if (!entityCreature.getEntityType().equals(EntityType.CAT)){
                 return;
@@ -55,5 +59,9 @@ public class CatMovementRunnable {
 
     public void stop() {
         task.cancel();
+    }
+
+    public Entity getTarget() {
+        return target;
     }
 }

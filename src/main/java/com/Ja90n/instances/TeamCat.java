@@ -4,24 +4,29 @@ import com.Ja90n.Blubwars;
 import com.Ja90n.enums.TeamType;
 import com.Ja90n.runnables.CatMovementRunnable;
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityCreature;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.metadata.animal.tameable.CatMeta;
+import net.minestom.server.instance.Instance;
 
 public class TeamCat {
 
     private Team team;
     private CatMovementRunnable catMovementRunnable;
     private EntityCreature cat;
+    private Instance instance;
 
     public TeamCat(Team team) {
         this.team = team;
+        instance = Blubwars.getWorld().getInstance();
     }
 
     public void spawnCat() {
         summonCat();
         catMovementRunnable = new CatMovementRunnable(cat);
+        catMovementRunnable.start();
     }
 
     public void respawnCat() {
@@ -31,10 +36,8 @@ public class TeamCat {
 
     public void summonCat() {
         cat = new EntityCreature(EntityType.CAT);
-        Player player = MinecraftServer.getConnectionManager().getPlayer(team.getPlayers().get(0));
 
-        if (player == null) return;
-        cat.setInstance(player.getInstance(), Blubwars.getConfigManager().getTeamSpawn(team.getTeamType()));
+        cat.setInstance(instance, Blubwars.getConfigManager().getTeamSpawn(team.getTeamType()));
 
         CatMeta catMeta = (CatMeta) cat.getEntityMeta();
         catMeta.setCollarColor(team.getTeamType().getCollarColor());
@@ -46,5 +49,17 @@ public class TeamCat {
 
     public EntityCreature getCat() {
         return cat;
+    }
+
+    public void setTarget(Entity target) {
+        catMovementRunnable.setTarget(target);
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public Entity getTarget() {
+        return catMovementRunnable.getTarget();
     }
 }

@@ -6,6 +6,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.EntityCreature;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.metadata.animal.tameable.CatMeta;
+import net.minestom.server.instance.Instance;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class Team {
 
     public Team(TeamType teamType) {
         this.teamType = teamType;
+
         teamCat = new TeamCat(this);
         players = new ArrayList<>();
     }
