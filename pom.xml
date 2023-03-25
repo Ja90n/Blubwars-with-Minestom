@@ -63,6 +63,11 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.TogAr2</groupId>
+            <artifactId>MinestomPvP</artifactId>
+            <version>master-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

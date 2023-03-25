@@ -7,6 +7,7 @@ import com.Ja90n.events.*;
 import com.Ja90n.instances.Arena;
 import com.Ja90n.instances.World;
 import com.Ja90n.managers.ConfigManager;
+import io.github.bloepiloepi.pvp.PvpExtension;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
@@ -40,6 +41,9 @@ public class Blubwars {
         if (configManager.getVelocity()){
             VelocityProxy.enable(configManager.getForwardingSecret());
         }
+
+        PvpExtension.init();
+        MinecraftServer.getGlobalEventHandler().addChild(PvpExtension.events());
 
         minecraftServer.start(configManager.getHost(),configManager.getPort());
         logger.info("Server stated!");

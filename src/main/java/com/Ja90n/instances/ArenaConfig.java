@@ -1,6 +1,11 @@
 package com.Ja90n.instances;
 
+import com.Ja90n.enums.Cost;
 import net.minestom.server.coordinate.Pos;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class ArenaConfig {
 
@@ -13,9 +18,52 @@ public class ArenaConfig {
     private Pos blueTeamSpawn;
     private Pos yellowTeamSpawn;
 
+    private List<Pos> posList;
+    private List<Cost> costs;
+
     public void setDefault() {
         requiredPlayers = 3;
         countdownSeconds = 20;
+
+        posList = new ArrayList<>();
+        costs = new ArrayList<>();
+
+        posList.add(new Pos(0.5,63.5,-73.5));
+        posList.add(new Pos(0.5,63.5,74.5));
+        posList.add(new Pos(-73.5,63.5,0.5));
+        posList.add(new Pos(74.5,63.5,0.5));
+
+        costs.add(Cost.COD);
+        costs.add(Cost.COD);
+        costs.add(Cost.COD);
+        costs.add(Cost.COD);
+
+        posList.add(new Pos(-73.5,63.5,0.5));
+        posList.add(new Pos(74.5,63.5,0.5));
+        posList.add(new Pos(0.5,63.5,74.5));
+        posList.add(new Pos(0.5,63.5,-73.5));
+
+        costs.add(Cost.SALMON);
+        costs.add(Cost.SALMON);
+        costs.add(Cost.SALMON);
+        costs.add(Cost.SALMON);
+
+        posList.add(new Pos(42.5,60.5,-41.5));
+        posList.add(new Pos(42.5,60.5,41.5));
+        posList.add(new Pos(-42.5,60.5,-41.5));
+        posList.add(new Pos(-42.5,60.5,41.5));
+
+        costs.add(Cost.TROPICAL_FISH);
+        costs.add(Cost.TROPICAL_FISH);
+        costs.add(Cost.TROPICAL_FISH);
+        costs.add(Cost.TROPICAL_FISH);
+
+        posList.add(new Pos(9.5,61.5,-8.5));
+        posList.add(new Pos(-8.5,61.5,9.5));
+
+        costs.add(Cost.PUFFERFISH);
+        costs.add(Cost.PUFFERFISH);
+
         lobbyLocation = new Pos(0.5,103,0.5);
         redTeamSpawn = new Pos(0.5,63,-70.5, 0, 0);
         blueTeamSpawn = new Pos(70.5,63,0.5,90,0);
@@ -49,5 +97,13 @@ public class ArenaConfig {
 
     public Pos getLobbyLocation() {
         return lobbyLocation;
+    }
+
+    public List<Pos> getDropperLocations() {
+        return posList;
+    }
+
+    public List<Cost> getTypes() {
+        return costs;
     }
 }

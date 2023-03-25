@@ -1,9 +1,11 @@
 package com.Ja90n.instances;
 
+import com.Ja90n.Blubwars;
 import com.Ja90n.enums.GameState;
 import com.Ja90n.enums.TeamType;
 import com.Ja90n.managers.BlockManager;
 import com.Ja90n.managers.ConfigManager;
+import com.Ja90n.managers.DropperManager;
 import com.Ja90n.managers.TeamManager;
 import com.Ja90n.runnables.ResetCountdown;
 import net.kyori.adventure.text.Component;
@@ -27,11 +29,13 @@ public class Game {
     private final ConfigManager configManager;
     private final BlockManager blockManager;
     private final TeamManager teamManager;
+    private final DropperManager dropperManager;
     private final Arena arena;
 
     public Game(Instance world, ConfigManager configManager, Arena arena){
         blockManager = new BlockManager();
         teamManager = new TeamManager();
+        dropperManager = new DropperManager();
         this.arena = arena;
         this.world = world;
         this.configManager = configManager;
@@ -53,6 +57,7 @@ public class Game {
         }
 
         teamManager.spawnCats();
+        dropperManager.start();
 
         arena.setGameState(GameState.LIVE);
     }
@@ -83,5 +88,9 @@ public class Game {
 
     public BlockManager getBlockManager() {
         return blockManager;
+    }
+
+    public DropperManager getDropperManager() {
+        return dropperManager;
     }
 }

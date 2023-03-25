@@ -1,5 +1,6 @@
 package com.Ja90n.managers;
 
+import com.Ja90n.enums.Cost;
 import com.Ja90n.enums.TeamType;
 import com.Ja90n.instances.ArenaConfig;
 import com.Ja90n.instances.Config;
@@ -8,6 +9,8 @@ import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.minestom.server.coordinate.Pos;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.List;
 
 public class ConfigManager {
 
@@ -84,6 +87,14 @@ public class ConfigManager {
 
     public int getRequiredPlayers() {
         return arenaConfig.getRequiredPlayers();
+    }
+
+    public List<Pos> getDropperLocations() {
+        return arenaConfig.getDropperLocations();
+    }
+
+    public List<Cost> getTypes() {
+        return arenaConfig.getTypes();
     }
 
     public Pos getTeamSpawn(TeamType teamType){

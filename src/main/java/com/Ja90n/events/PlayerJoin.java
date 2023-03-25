@@ -7,6 +7,7 @@ import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.*;
 import net.minestom.server.entity.metadata.animal.tameable.CatMeta;
 import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.event.player.PlayerDisconnectEvent;
 import net.minestom.server.event.player.PlayerLoginEvent;
 import net.minestom.server.event.player.PlayerSpawnEvent;
 import net.minestom.server.instance.Instance;
@@ -27,7 +28,11 @@ public class PlayerJoin {
         globalEventHandler.addListener(PlayerSpawnEvent.class, event -> {
             event.getPlayer().teleport(new Pos(0.5,103,0.5));
             event.getPlayer().setGameMode(GameMode.ADVENTURE);
+            event.getPlayer().setEnableRespawnScreen(false);
             arena.addPlayer(event.getPlayer());
+        });
+
+        globalEventHandler.addListener(PlayerDisconnectEvent.class, event -> {
         });
     }
 }

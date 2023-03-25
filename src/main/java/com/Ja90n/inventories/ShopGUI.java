@@ -47,15 +47,15 @@ public class ShopGUI {
 
     private void setBlocks() {
         // Blocks
-        setItem(11, team.getDisplay().append(Component.text(" wool")), team.getWool());
-        setItem(20, team.getDisplay().append(Component.text(" clay")), team.getClay());
+        setItem(11, team.getDisplay().append(Component.text(" wool")), team.getWool(),4);
+        setItem(20, team.getDisplay().append(Component.text(" clay")), team.getClay(),2);
         setItem(29,ShopItems.WOOD);
     }
 
     private void setWeapons() {
         // Swords
         setItem(10,ShopItems.STONE_SWORD);
-        setItem(19,ShopItems.DIAMOND_SWORD);
+        setItem(19,ShopItems.IRON_SWORD);
         setItem(28,ShopItems.DIAMOND_SWORD);
     }
 
@@ -144,12 +144,12 @@ public class ShopGUI {
 
     private void addItem(ShopItems shopItems, Player player) {
         if (shopItems.equals(ShopItems.WOOL)) {
-            player.getInventory().addItemStack(getItem(team.getDisplay().append(Component.text(" wool")),team.getWool()));
+            player.getInventory().addItemStack(getItem(team.getDisplay().append(Component.text(" wool")),team.getWool(),4));
             return;
         }
 
         if (shopItems.equals(ShopItems.CLAY)) {
-            player.getInventory().addItemStack(getItem(team.getDisplay().append(Component.text(" clay")),team.getClay()));
+            player.getInventory().addItemStack(getItem(team.getDisplay().append(Component.text(" clay")),team.getClay(),2));
             return;
         }
 
@@ -157,11 +157,19 @@ public class ShopGUI {
     }
 
     private void setItem(int slot, Component name, Material material) {
-        inventory.setItemStack(slot, getItem(name,material));
+        inventory.setItemStack(slot, getItem(name,material,1));
+    }
+
+    private void setItem(int slot, Component name, Material material, int amount) {
+        inventory.setItemStack(slot, getItem(name,material,amount));
     }
 
     private ItemStack getItem(Component name, Material material) {
-        return ItemStack.builder(material).displayName(name).build();
+        return getItem(name, material, 1);
+    }
+
+    private ItemStack getItem(Component name, Material material, int amount) {
+        return ItemStack.builder(material).displayName(name).amount(amount).build();
     }
 
     private void setItem(int slot, ShopItems shopItems) {
