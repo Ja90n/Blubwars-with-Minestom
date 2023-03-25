@@ -1,5 +1,6 @@
 package com.Ja90n.instances;
 
+import com.Ja90n.Blubwars;
 import com.Ja90n.enums.GameState;
 import com.Ja90n.managers.ConfigManager;
 import com.Ja90n.runnables.GameCountdown;
@@ -22,7 +23,7 @@ public class Arena {
     private final int arenaId;
     private final String arenaName;
     private World world;
-    private ConfigManager configManager;
+    private static ConfigManager configManager;
     private GameCountdown countdown;
 
     private final ArrayList<UUID> players;
@@ -31,11 +32,12 @@ public class Arena {
 
     private Game game;
 
-    public Arena(int arenaId, String arenaName, World world, ConfigManager configManager) {
+    public Arena(int arenaId, String arenaName, World world) {
         this.arenaId = arenaId;
         this.arenaName = arenaName;
         this.world = world;
-        this.configManager = configManager;
+
+        configManager = Blubwars.getConfigManager();
 
         gameState = GameState.RECRUITING;
         players = new ArrayList<>();

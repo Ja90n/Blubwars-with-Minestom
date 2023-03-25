@@ -14,9 +14,8 @@ public class CatMovementRunnable {
     private Entity target;
     private Task task;
 
-    public CatMovementRunnable(EntityCreature entityCreature, Entity target) {
+    public CatMovementRunnable(EntityCreature entityCreature) {
         this.entityCreature = entityCreature;
-        this.target = target;
     }
 
     public void start() {

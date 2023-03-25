@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class PlayerJoin {
 
-    public PlayerJoin(GlobalEventHandler globalEventHandler, Instance world, Arena arena, ConfigManager configManager) {
+    public PlayerJoin(GlobalEventHandler globalEventHandler, Instance world, Arena arena) {
         globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
             event.setSpawningInstance(world);
             if (event.getPlayer().getUuid().equals(UUID.fromString("f8788f7c-7cd5-44ed-ab6f-aad79d7e5fc7"))){

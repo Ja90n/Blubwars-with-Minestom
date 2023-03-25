@@ -32,7 +32,7 @@ public class Blubwars {
         configManager = new ConfigManager(logger);
 
         world = new World();
-        arena = new Arena(configManager.getPort(),"Temple",world,configManager);
+        arena = new Arena(configManager.getPort(),"Temple",world);
 
         initiateEvents(MinecraftServer.getGlobalEventHandler());
         initiateCommands(MinecraftServer.getCommandManager());
@@ -48,10 +48,11 @@ public class Blubwars {
     private static void initiateEvents(GlobalEventHandler globalEventHandler){
         new EntityAttack(globalEventHandler, arena);
         new ItemEvents(globalEventHandler);
-        new PlayerJoin(globalEventHandler, world.getInstance(), arena,configManager);
-        new PlayerDeath(globalEventHandler, arena, configManager);
+        new PlayerJoin(globalEventHandler, world.getInstance(), arena);
+        new PlayerDeath(globalEventHandler, arena);
         new PlayerBlockEvents(globalEventHandler,arena);
         new InteractEntity(globalEventHandler);
+        new EntityDeath(globalEventHandler,arena);
 
         logger.info("Events initiated!");
     }

@@ -2,8 +2,11 @@ package com.Ja90n.managers;
 
 import com.Ja90n.enums.TeamType;
 import com.Ja90n.instances.Team;
+import com.Ja90n.instances.TeamCat;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.minestom.server.entity.EntityCreature;
+import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
 
 import java.util.ArrayList;
@@ -19,6 +22,34 @@ public class TeamManager {
                 teams.add(new Team(teamType1));
             }
         }
+    }
+
+    public void spawnCats() {
+        for (Team team : teams) {
+            team.spawnCat();
+        }
+    }
+
+    public TeamCat getCat(EntityCreature entityCreature) {
+        if (!entityCreature.getEntityType().equals(EntityType.CAT)) {
+            return null;
+        }
+
+        for (Team team : teams) {
+            if (team.getTeamCat().getCat().equals(entityCreature)) {
+                return team.getTeamCat();
+            }
+        }
+        return null;
+    }
+
+    public TeamCat getCat(TeamType teamType) {
+        for (Team team : teams) {
+            if (team.getTeamType().equals(teamType)) {
+                return team.getTeamCat();
+            }
+        }
+        return null;
     }
 
 
@@ -50,6 +81,14 @@ public class TeamManager {
             }
         }
         return returnTeam.getTeamType();
+    }
+
+    public ArrayList<TeamCat> getCats() {
+        ArrayList<TeamCat> cats = new ArrayList<>();
+        for (Team team : teams) {
+            cats.add(team.getTeamCat());
+        }
+        return cats;
     }
 
     public ArrayList<Team> getTeams() {

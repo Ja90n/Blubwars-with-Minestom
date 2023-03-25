@@ -14,12 +14,16 @@ public class Team {
 
     private final TeamType teamType;
     private final ArrayList<UUID> players;
-    private EntityCreature entityCreature;
-    private CatMovementRunnable catMovementRunnable;
+    private final TeamCat teamCat;
 
     public Team(TeamType teamType) {
         this.teamType = teamType;
+        teamCat = new TeamCat(this);
         players = new ArrayList<>();
+    }
+
+    public void spawnCat() {
+        teamCat.spawnCat();
     }
 
     public void addPlayer(Player player){
@@ -34,22 +38,19 @@ public class Team {
         return teamType;
     }
 
-    public void setCat(EntityCreature cat) {
-        this.entityCreature = cat;
-        catMovementRunnable = new CatMovementRunnable(entityCreature, MinecraftServer.getConnectionManager().getPlayer(players.get(0)));
-        CatMeta catMeta = (CatMeta) entityCreature.getEntityMeta();
-        catMeta.setCollarColor(teamType.getCollarColor());
-    }
-
-    public EntityCreature getCat() {
-        return entityCreature;
-    }
-
     public int getPlayerAmount() {
         return players.size();
     }
 
     public boolean containsPlayer(Player player) {
         return players.contains(player.getUuid());
+    }
+
+    public ArrayList<UUID> getPlayers() {
+        return players;
+    }
+
+    public TeamCat getTeamCat() {
+        return teamCat;
     }
 }

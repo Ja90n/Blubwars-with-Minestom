@@ -52,12 +52,7 @@ public class Game {
             player.teleport(configManager.getTeamSpawn(teamManager.getTeam(player)));
         }
 
-        for (Team team : teamManager.getTeams()) {
-            EntityCreature entityCreature = new EntityCreature(EntityType.CAT);
-            entityCreature.setInstance(world, configManager.getTeamSpawn(team.getTeamType()));
-
-            team.setCat(entityCreature);
-        }
+        teamManager.spawnCats();
 
         arena.setGameState(GameState.LIVE);
     }
