@@ -60,6 +60,10 @@ public class Arena {
 
     }
 
+    public void removePlayer(Player player) {
+
+    }
+
     public void sendTitle(TextComponent title1, TextComponent title2){
         for (UUID uuid : players){
             Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);

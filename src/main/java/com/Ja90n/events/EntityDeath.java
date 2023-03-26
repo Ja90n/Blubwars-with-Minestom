@@ -20,6 +20,11 @@ public class EntityDeath {
             if (teamCat == null) {
                 return;
             }
+            teamCat.removeLife();
+            if (teamCat.getLives() <= -1) {
+                teamCat.getTeam().setCatAlive(false);
+                return;
+            }
             teamCat.respawnCat();
         });
     }

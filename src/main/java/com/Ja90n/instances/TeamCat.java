@@ -1,22 +1,20 @@
 package com.Ja90n.instances;
 
 import com.Ja90n.Blubwars;
-import com.Ja90n.enums.TeamType;
 import com.Ja90n.runnables.CatMovementRunnable;
-import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityCreature;
 import net.minestom.server.entity.EntityType;
-import net.minestom.server.entity.Player;
 import net.minestom.server.entity.metadata.animal.tameable.CatMeta;
 import net.minestom.server.instance.Instance;
 
 public class TeamCat {
 
-    private Team team;
+    private final Team team;
+    private final Instance instance;
     private CatMovementRunnable catMovementRunnable;
     private EntityCreature cat;
-    private Instance instance;
+    private int lives;
 
     public TeamCat(Team team) {
         this.team = team;
@@ -24,6 +22,7 @@ public class TeamCat {
     }
 
     public void spawnCat() {
+        lives = 9;
         summonCat();
         catMovementRunnable = new CatMovementRunnable(cat);
         catMovementRunnable.start();
@@ -41,6 +40,14 @@ public class TeamCat {
 
         CatMeta catMeta = (CatMeta) cat.getEntityMeta();
         catMeta.setCollarColor(team.getTeamType().getCollarColor());
+    }
+
+    public void removeLife() {
+        lives--;
+    }
+
+    public int getLives() {
+        return lives;
     }
 
     public void stop() {

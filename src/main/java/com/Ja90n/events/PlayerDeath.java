@@ -2,8 +2,13 @@ package com.Ja90n.events;
 
 import com.Ja90n.Blubwars;
 import com.Ja90n.enums.GameState;
+import com.Ja90n.enums.TeamType;
 import com.Ja90n.instances.Arena;
+import com.Ja90n.instances.Team;
 import com.Ja90n.managers.ConfigManager;
+import com.Ja90n.managers.TeamManager;
+import net.minestom.server.entity.GameMode;
+import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerDeathEvent;
 import net.minestom.server.event.player.PlayerRespawnEvent;
@@ -17,10 +22,37 @@ public class PlayerDeath {
         ConfigManager configManager = Blubwars.getConfigManager();
 
         globalEventHandler.addListener(PlayerRespawnEvent.class, event -> {
-            if (arena.getGameState().equals(GameState.LIVE)){
-                event.setRespawnPosition(configManager.getTeamSpawn(arena.getGame().getTeamManager().getTeam(event.getPlayer())));
-            } else {
+            if (!arena.getGameState().equals(GameState.LIVE)){
                 event.setRespawnPosition(configManager.getLobbyLocation());
+            } else {
+                Player player = event.getPlayer();
+                TeamManager teamManager = arena.getGame().getTeamManager();
+                Team team = teamManager.getTeam(player);
+
+                if (team.isCatAlive()) {
+                    event.setRespawnPosition(configManager.getTeamSpawn(team.getTeamType()));
+                    return;
+                }
+
+                team.removePlayer(player);
+                teamManager.addPlayer(player, TeamType.SPECTATOR);
+                player.setGameMode(GameMode.SPECTATOR);
+
+                int aliveTeams = 0;
+                for (Team team1 : teamManager.getTeams()) {
+                    if (team1.getPlayerAmount() > 0) {
+                        aliveTeams++;
+                    }
+                }
+
+                if (aliveTeams <= 1) {
+                    for (Team team1 : teamManager.getTeams()) {
+                        if (team1.getPlayerAmount() > 0) {
+                            arena.getGame().won(team1.getTeamType());
+                        }
+                    }
+                    arena.getGame().end();
+                }
             }
         });
     }

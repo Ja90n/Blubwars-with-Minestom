@@ -53,10 +53,10 @@ public class TeamManager {
     }
 
 
-    public TeamType getTeam(Player player) {
+    public Team getTeam(Player player) {
         for (Team team : teams) {
             if (team.containsPlayer(player)) {
-                return team.getTeamType();
+                return team;
             }
         }
         return null;
@@ -93,5 +93,9 @@ public class TeamManager {
 
     public ArrayList<Team> getTeams() {
         return teams;
+    }
+
+    public void removeTeam(Team team) {
+        teams.remove(team);
     }
 }

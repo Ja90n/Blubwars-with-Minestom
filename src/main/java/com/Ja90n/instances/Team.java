@@ -16,9 +16,11 @@ public class Team {
     private final TeamType teamType;
     private final ArrayList<UUID> players;
     private final TeamCat teamCat;
+    private boolean isCatAlive;
 
     public Team(TeamType teamType) {
         this.teamType = teamType;
+        isCatAlive = true;
 
         teamCat = new TeamCat(this);
         players = new ArrayList<>();
@@ -38,6 +40,14 @@ public class Team {
 
     public TeamType getTeamType() {
         return teamType;
+    }
+
+    public boolean isCatAlive() {
+        return isCatAlive;
+    }
+
+    public void setCatAlive(boolean catAlive) {
+        isCatAlive = catAlive;
     }
 
     public int getPlayerAmount() {
