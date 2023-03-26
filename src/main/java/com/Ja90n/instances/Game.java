@@ -53,7 +53,7 @@ public class Game {
             player.setGameMode(GameMode.SURVIVAL);
             player.closeInventory();
             player.clearEffects();
-            player.teleport(configManager.getTeamSpawn(teamManager.getTeam(player)));
+            player.teleport(configManager.getTeamSpawn(teamManager.getTeam(player).getTeamType()));
         }
 
         teamManager.spawnCats();
@@ -66,12 +66,16 @@ public class Game {
         new ResetCountdown();
     }
 
+    public void won(TeamType team) {
+        new ResetCountdown(team);
+    }
+
     public void addPlayer(Player player){
         if (arena.getGameState().equals(GameState.COUNTDOWN) || arena.getGameState().equals(GameState.RECRUITING)) {
             teamManager.addPlayer(player, teamManager.getLowerstTeam());
 
             player.sendMessage(Component.text("You have been added to the ")
-                    .append(teamManager.getTeam(player).getDisplay())
+                    .append(teamManager.getTeam(player).getTeamType().getDisplay())
                     .append(Component.text(" team!")));
             player.sendMessage("You have joined the game!");
         } else if (arena.getGameState().equals(GameState.LIVE)){

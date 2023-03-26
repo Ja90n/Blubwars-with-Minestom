@@ -1,7 +1,10 @@
 package com.Ja90n.inventories;
 
-import com.Ja90n.enums.ShopItems;
 import com.Ja90n.enums.TeamType;
+import com.Ja90n.shopitems.IShopItem;
+import com.Ja90n.shopitems.ShopItemFactory;
+import com.Ja90n.shopitems.creators.*;
+import com.Ja90n.shopitems.items.ClayItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.entity.Player;
@@ -47,20 +50,20 @@ public class ShopGUI {
 
     private void setBlocks() {
         // Blocks
-        setItem(11, team.getDisplay().append(Component.text(" wool")), team.getWool(),4);
-        setItem(20, team.getDisplay().append(Component.text(" clay")), team.getClay(),2);
-        setItem(29,ShopItems.WOOD);
+        setItem(11, new WoolCreator(team));
+        setItem(20, new ClayCreator(team));
+        setItem(29, new WoodCreator());
     }
 
     private void setWeapons() {
         // Swords
-        setItem(10,ShopItems.STONE_SWORD);
-        setItem(19,ShopItems.IRON_SWORD);
-        setItem(28,ShopItems.DIAMOND_SWORD);
+        setItem(10, new StoneSwordCreator());
+        setItem(19, new IronSwordCreator());
+        setItem(28, new DiamondSwordCreator());
     }
 
     private void setTools() {
-        setItem(13,ShopItems.SHEARS);
+        setItem(13, new ShearsCreator());
     }
 
     private void setEvent() {
@@ -69,41 +72,43 @@ public class ShopGUI {
 
             switch (slot) {
                 case 10:
-                    addPlayerItem(ShopItems.STONE_SWORD, player);
+                    addPlayerItem(new StoneSwordCreator(), player);
                     break;
                 case 11:
-                    addPlayerItem(ShopItems.WOOL,player);
+                    addPlayerItem(new WoolCreator(team),player);
                     break;
                 case 13:
-                    addPlayerItem(ShopItems.SHEARS,player);
+                    addPlayerItem(new ShearsCreator(),player);
                     break;
                 case 19:
-                    addPlayerItem(ShopItems.IRON_SWORD, player);
+                    addPlayerItem(new IronSwordCreator(), player);
                     break;
                 case 20:
-                    addPlayerItem(ShopItems.CLAY, player);
+                    addPlayerItem(new ClayCreator(team), player);
                     break;
                 case 28:
-                    addPlayerItem(ShopItems.DIAMOND_SWORD, player);
+                    addPlayerItem(new DiamondSwordCreator(), player);
                     break;
                 case 29:
-                    addPlayerItem(ShopItems.WOOD,player);
+                    addPlayerItem(new WoodCreator(),player);
                     break;
             }
 
         });
     }
 
-    private void addPlayerItem(ShopItems shopItem, Player player) {
+    private void addPlayerItem(ShopItemFactory factory, Player player) {
+        IShopItem shopItem = factory.getShopItem();
+
         int amount = 0;
         for (int i = 0; i < player.getInventory().getSize(); i++) {
             ItemStack itemStack = player.getInventory().getItemStack(i);
             if (itemStack.material().equals(shopItem.getCost().getMaterial())) {
-                if (shopItem.getAmount() <= itemStack.amount()) {
+                if (shopItem.getCostAmount() <= itemStack.amount()) {
                     ItemStack item = ItemStack.builder(
                                     itemStack.material())
                             .displayName(itemStack.getDisplayName())
-                            .amount(itemStack.amount() - shopItem.getAmount()).build();
+                            .amount(itemStack.amount() - shopItem.getCostAmount()).build();
 
                     player.getInventory().setItemStack(i, item);
                     addItem(shopItem,player);
@@ -113,12 +118,12 @@ public class ShopGUI {
             }
         }
 
-        if (!(amount >= shopItem.getAmount())) {
+        if (!(amount >= shopItem.getCostAmount())) {
             player.sendMessage(Component.text("You don't have enough to buy this item!", NamedTextColor.RED));
             return;
         }
 
-        amount = shopItem.getAmount();
+        amount = shopItem.getCostAmount();
 
         for (int i = 0; i < player.getInventory().getSize(); i++) {
             ItemStack itemStack = player.getInventory().getItemStack(i);
@@ -142,22 +147,8 @@ public class ShopGUI {
         }
     }
 
-    private void addItem(ShopItems shopItems, Player player) {
-        if (shopItems.equals(ShopItems.WOOL)) {
-            player.getInventory().addItemStack(getItem(team.getDisplay().append(Component.text(" wool")),team.getWool(),4));
-            return;
-        }
-
-        if (shopItems.equals(ShopItems.CLAY)) {
-            player.getInventory().addItemStack(getItem(team.getDisplay().append(Component.text(" clay")),team.getClay(),2));
-            return;
-        }
-
-        player.getInventory().addItemStack(shopItems.getItemStack());
-    }
-
-    private void setItem(int slot, Component name, Material material) {
-        inventory.setItemStack(slot, getItem(name,material,1));
+    private void addItem(IShopItem shopItem, Player player) {
+        player.getInventory().addItemStack(shopItem.getItemStack());
     }
 
     private void setItem(int slot, Component name, Material material, int amount) {
@@ -172,13 +163,18 @@ public class ShopGUI {
         return ItemStack.builder(material).displayName(name).amount(amount).build();
     }
 
-    private void setItem(int slot, ShopItems shopItems) {
+    private void setItem(int slot, ShopItemFactory shopItemFactory) {
+        IShopItem shopItem = shopItemFactory.getShopItem();
         List<Component> lore = new ArrayList<>();
-        Component component = Component.text("Cost: ",NamedTextColor.BLUE).append(Component.text(shopItems.getAmount(),NamedTextColor.WHITE).append(Component.text(" ").append(shopItems.getCost().getComponent())));
+        Component component = Component.text("Cost: ",NamedTextColor.BLUE)
+                .append(Component.text(shopItem.getCostAmount(),NamedTextColor.WHITE)
+                        .append(Component.text(" ")
+                                .append(shopItem.getCost().getComponent())));
+
         lore.add(component);
 
-        ItemStack itemStack = ItemStack.builder(shopItems.getItemStack().material())
-                .displayName(shopItems.getItemStack().getDisplayName())
+        ItemStack itemStack = ItemStack.builder(shopItem.getItemStack().material())
+                .displayName(shopItem.getItemStack().getDisplayName())
                 .lore(lore)
                 .build();
 
