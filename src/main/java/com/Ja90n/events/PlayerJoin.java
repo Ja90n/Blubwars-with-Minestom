@@ -33,6 +33,7 @@ public class PlayerJoin {
         });
 
         globalEventHandler.addListener(PlayerDisconnectEvent.class, event -> {
+            arena.removePlayer(event.getPlayer());
         });
     }
 }

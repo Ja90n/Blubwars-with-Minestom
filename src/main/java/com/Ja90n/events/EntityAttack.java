@@ -2,9 +2,9 @@ package com.Ja90n.events;
 
 import com.Ja90n.enums.GameState;
 import com.Ja90n.instances.Arena;
+import com.Ja90n.instances.Team;
 import com.Ja90n.instances.TeamCat;
 import io.github.bloepiloepi.pvp.events.FinalAttackEvent;
-import io.github.bloepiloepi.pvp.events.FinalDamageEvent;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -39,6 +39,21 @@ public class EntityAttack {
                     teamCat.setTarget(player);
                     player.sendMessage(Component.text("Cat claimed!", NamedTextColor.BLUE));
                     player.playSound(Sound.sound(SoundEvent.BLOCK_LEVER_CLICK, Sound.Source.MASTER,1f,1f));
+                }
+            } else if (event.getTarget() instanceof Player target) {
+                if (!(event.getEntity() instanceof Player player)){
+                    return;
+                }
+
+                if (!arena.getGameState().equals(GameState.LIVE)) {
+                    event.setCancelled(true);
+                    return;
+                }
+
+                Team team = arena.getGame().getTeamManager().getTeam(player);
+                Team targetTeam = arena.getGame().getTeamManager().getTeam(target);
+                if (team.equals(targetTeam)) {
+                    event.setCancelled(true);
                 }
             }
         });

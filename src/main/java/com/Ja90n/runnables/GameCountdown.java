@@ -41,4 +41,8 @@ public class GameCountdown {
 
         },TaskSchedule.tick(1), TaskSchedule.tick(20));
     }
+
+    public void cancel() {
+        task.cancel();
+    }
 }

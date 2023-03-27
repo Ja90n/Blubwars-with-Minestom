@@ -26,9 +26,11 @@ public class EntityDeath {
             teamCat.removeLife();
             if (teamCat.getLives() <= -1) {
                 teamCat.getTeam().setCatAlive(false);
+                arena.sendMessage(teamCat.getTeam().getTeamType().getDisplay().append(Component.text(" 's cat died permanently!")));
+                arena.sendMessage(Component.text("They are now final kills!"));
                 return;
             }
-            arena.sendMessage(teamCat.getTeam().getTeamType().getDisplay().append(Component.text(" 's cat died!")));
+            arena.sendMessage(teamCat.getTeam().getTeamType().getDisplay().append(Component.text("'s cat died!")));
             arena.sendMessage(Component.text("It has ").append(Component.text(teamCat.getLives()).append(Component.text(" lives left!"))));
             teamCat.died();
         });

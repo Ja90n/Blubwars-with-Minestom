@@ -6,6 +6,7 @@ import com.Ja90n.managers.ConfigManager;
 import com.Ja90n.runnables.GameCountdown;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.title.Title;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.GameMode;
@@ -61,11 +62,29 @@ public class Arena {
 
     }
 
-    public void removePlayer(Player player) {
-
+    public void stopCountdown() {
+        countdown.cancel();
+        countdown = new GameCountdown(this,configManager.getCountdownSeconds());
     }
 
-    public void sendTitle(TextComponent title1, TextComponent title2){
+    public void removePlayer(Player player) {
+        players.remove(player.getUuid());
+        player.getInventory().clear();
+        game.getTeamManager().removePlayer(player);
+
+        if (gameState == GameState.COUNTDOWN && players.size() < configManager.getRequiredPlayers()){
+            sendMessage(Component.text("There are not enough players, countdown stopped!", NamedTextColor.RED));
+            stopCountdown();
+            return;
+        }
+
+        if (gameState == GameState.LIVE && players.size() < configManager.getRequiredPlayers()){
+            sendMessage(Component.text("The game has ended as to many players have left.", NamedTextColor.RED));
+            game.end();
+        }
+    }
+
+    public void sendTitle(Component title1, Component title2){
         for (UUID uuid : players){
             Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
             Title title = Title.title(title1,title2);

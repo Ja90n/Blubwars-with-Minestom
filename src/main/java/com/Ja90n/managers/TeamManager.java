@@ -14,12 +14,22 @@ import java.util.ArrayList;
 public class TeamManager {
 
     private final ArrayList<Team> teams;
+    private final Team spectatorTeam;
 
     public TeamManager() {
         teams = new ArrayList<>();
+        spectatorTeam = new Team(TeamType.SPECTATOR);
         for (TeamType teamType1 : TeamType.values()){
             if (!teamType1.equals(TeamType.SPECTATOR)) {
                 teams.add(new Team(teamType1));
+            }
+        }
+    }
+
+    public void removePlayer(Player player) {
+        for (Team team : teams) {
+            if (team.containsPlayer(player)) {
+                team.removePlayer(player);
             }
         }
     }
@@ -69,8 +79,7 @@ public class TeamManager {
                 return;
             }
         }
-        player.sendMessage(Component.text("Team you were trying to join does not exist! This should not happen." +
-                " If you see this please notify Ja90n#5855", NamedTextColor.RED));
+        spectatorTeam.addPlayer(player);
     }
 
     public TeamType getLowerstTeam() {

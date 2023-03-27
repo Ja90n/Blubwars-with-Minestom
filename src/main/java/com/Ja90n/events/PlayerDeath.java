@@ -7,6 +7,7 @@ import com.Ja90n.instances.Arena;
 import com.Ja90n.instances.Team;
 import com.Ja90n.managers.ConfigManager;
 import com.Ja90n.managers.TeamManager;
+import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
@@ -37,6 +38,8 @@ public class PlayerDeath {
                 team.removePlayer(player);
                 teamManager.addPlayer(player, TeamType.SPECTATOR);
                 player.setGameMode(GameMode.SPECTATOR);
+                player.teleport(configManager.getTeamSpawn(TeamType.SPECTATOR));
+                arena.sendMessage(player.getName().append(Component.text(" has died permanently!")));
 
                 int aliveTeams = 0;
                 for (Team team1 : teamManager.getTeams()) {
@@ -44,6 +47,8 @@ public class PlayerDeath {
                         aliveTeams++;
                     }
                 }
+
+                System.out.println(aliveTeams);
 
                 if (aliveTeams <= 1) {
                     for (Team team1 : teamManager.getTeams()) {

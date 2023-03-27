@@ -11,6 +11,8 @@ import net.minestom.server.instance.Instance;
 
 public class TeamCat {
 
+    private final int CAT_LIVES = 3;
+
     private final Team team;
     private final Instance instance;
     private CatMovementRunnable catMovementRunnable;
@@ -23,7 +25,7 @@ public class TeamCat {
     }
 
     public void spawnCat() {
-        lives = 9;
+        lives = CAT_LIVES;
         summonCat();
         catMovementRunnable = new CatMovementRunnable(cat);
         catMovementRunnable.start();

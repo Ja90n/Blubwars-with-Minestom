@@ -62,12 +62,13 @@ public class Game {
         arena.setGameState(GameState.LIVE);
     }
 
+
     public void end() {
-        new ResetCountdown();
+        new ResetCountdown(arena);
     }
 
     public void won(TeamType team) {
-        new ResetCountdown(team);
+        new ResetCountdown(arena).won(team);
     }
 
     public void addPlayer(Player player){
@@ -89,6 +90,8 @@ public class Game {
     public TeamManager getTeamManager() {
         return teamManager;
     }
+
+
 
     public BlockManager getBlockManager() {
         return blockManager;
