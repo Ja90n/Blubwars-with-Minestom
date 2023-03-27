@@ -2,12 +2,12 @@ package com.Ja90n.shopitems.creators;
 
 import com.Ja90n.shopitems.IShopItem;
 import com.Ja90n.shopitems.ShopItemFactory;
-import com.Ja90n.shopitems.items.ShearsItem;
+import com.Ja90n.shopitems.items.IronArmorItem;
 
-public class ShearsCreator extends ShopItemFactory {
+public class IronArmorCreator extends ShopItemFactory {
 
     @Override
     public IShopItem getShopItem() {
-        return new ShearsItem();
+        return new IronArmorItem();
     }
 }

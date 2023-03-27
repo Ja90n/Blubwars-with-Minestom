@@ -25,4 +25,9 @@ public class DiamondSwordItem implements IShopItem {
     public int getCostAmount() {
         return 5;
     }
+
+    @Override
+    public int inventoySlot() {
+        return 19;
+    }
 }

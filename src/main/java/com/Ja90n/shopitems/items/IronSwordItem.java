@@ -25,4 +25,9 @@ public class IronSwordItem implements IShopItem {
     public int getCostAmount() {
         return 7;
     }
+
+    @Override
+    public int inventoySlot() {
+        return 19;
+    }
 }

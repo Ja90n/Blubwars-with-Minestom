@@ -2,6 +2,7 @@ package com.Ja90n.instances;
 
 import com.Ja90n.Blubwars;
 import com.Ja90n.runnables.CatMovementRunnable;
+import com.Ja90n.runnables.CatRespawn;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityCreature;
 import net.minestom.server.entity.EntityType;
@@ -26,6 +27,10 @@ public class TeamCat {
         summonCat();
         catMovementRunnable = new CatMovementRunnable(cat);
         catMovementRunnable.start();
+    }
+
+    public void died() {
+        new CatRespawn(this);
     }
 
     public void respawnCat() {

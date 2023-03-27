@@ -24,4 +24,9 @@ public class ShearsItem implements IShopItem {
     public int getCostAmount() {
         return 5;
     }
+
+    @Override
+    public int inventoySlot() {
+        return 13;
+    }
 }

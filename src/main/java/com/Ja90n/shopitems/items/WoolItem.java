@@ -31,4 +31,9 @@ public class WoolItem implements IShopItem {
     public int getCostAmount() {
         return 1;
     }
+
+    @Override
+    public int inventoySlot() {
+        return 11;
+    }
 }

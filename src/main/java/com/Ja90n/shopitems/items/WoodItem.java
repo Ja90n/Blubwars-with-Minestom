@@ -26,4 +26,9 @@ public class WoodItem implements IShopItem {
     public int getCostAmount() {
         return 2;
     }
+
+    @Override
+    public int inventoySlot() {
+        return 29;
+    }
 }

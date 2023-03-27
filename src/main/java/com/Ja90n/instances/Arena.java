@@ -4,6 +4,7 @@ import com.Ja90n.Blubwars;
 import com.Ja90n.enums.GameState;
 import com.Ja90n.managers.ConfigManager;
 import com.Ja90n.runnables.GameCountdown;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.title.Title;
 import net.minestom.server.MinecraftServer;
@@ -72,7 +73,7 @@ public class Arena {
         }
     }
 
-    public void sendMessage(TextComponent textComponent){
+    public void sendMessage(Component textComponent){
         for (UUID uuid : players){
             Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
             player.sendMessage(textComponent);

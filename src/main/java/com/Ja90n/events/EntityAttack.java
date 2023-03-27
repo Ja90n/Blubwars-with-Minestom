@@ -9,9 +9,7 @@ import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.entity.*;
-import net.minestom.server.entity.damage.DamageType;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.event.entity.EntityAttackEvent;
 import net.minestom.server.sound.SoundEvent;
 
 public class EntityAttack {
@@ -31,7 +29,7 @@ public class EntityAttack {
                     return;
                 }
 
-                if (teamCat.getTeam().getTeamType().equals(arena.getGame().getTeamManager().getTeam(player))) {
+                if (teamCat.getTeam().getTeamType().equals(arena.getGame().getTeamManager().getTeam(player).getTeamType())) {
                     event.setCancelled(true);
                     if (teamCat.getTarget() != null) {
                         if (teamCat.getTarget().equals(player)) {
