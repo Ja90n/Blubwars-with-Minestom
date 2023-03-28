@@ -97,6 +97,10 @@ public class ConfigManager {
         return arenaConfig.getTypes();
     }
 
+    public List<Pos> getShopLocations() {
+        return arenaConfig.getShopLocations();
+    }
+
     public Pos getTeamSpawn(TeamType teamType){
         switch (teamType){
             case SPECTATOR -> {

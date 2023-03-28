@@ -3,10 +3,7 @@ package com.Ja90n.instances;
 import com.Ja90n.Blubwars;
 import com.Ja90n.enums.GameState;
 import com.Ja90n.enums.TeamType;
-import com.Ja90n.managers.BlockManager;
-import com.Ja90n.managers.ConfigManager;
-import com.Ja90n.managers.DropperManager;
-import com.Ja90n.managers.TeamManager;
+import com.Ja90n.managers.*;
 import com.Ja90n.runnables.ResetCountdown;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
@@ -30,12 +27,16 @@ public class Game {
     private final BlockManager blockManager;
     private final TeamManager teamManager;
     private final DropperManager dropperManager;
+    private final VillagerManager villagerManager;
+    private final PlayerManager playerManager;
     private final Arena arena;
 
     public Game(Instance world, ConfigManager configManager, Arena arena){
         blockManager = new BlockManager();
         teamManager = new TeamManager();
         dropperManager = new DropperManager();
+        villagerManager = new VillagerManager();
+        playerManager = new PlayerManager();
         this.arena = arena;
         this.world = world;
         this.configManager = configManager;
@@ -54,10 +55,12 @@ public class Game {
             player.closeInventory();
             player.clearEffects();
             player.teleport(configManager.getTeamSpawn(teamManager.getTeam(player).getTeamType()));
+            playerManager.setInventory(player,teamManager.getTeam(player).getTeamType());
         }
 
         teamManager.spawnCats();
         dropperManager.start();
+        villagerManager.setupShopVillagers();
 
         arena.setGameState(GameState.LIVE);
     }
@@ -91,13 +94,10 @@ public class Game {
         return teamManager;
     }
 
-
+    public PlayerManager getPlayerManager() { return playerManager; }
 
     public BlockManager getBlockManager() {
         return blockManager;
     }
 
-    public DropperManager getDropperManager() {
-        return dropperManager;
-    }
 }

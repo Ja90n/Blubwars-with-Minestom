@@ -18,7 +18,11 @@ public class PlayerDeath {
 
     public PlayerDeath(GlobalEventHandler globalEventHandler, Arena arena) {
 
-        globalEventHandler.addListener(PlayerDeathEvent.class, event -> event.getPlayer().respawn());
+        globalEventHandler.addListener(PlayerDeathEvent.class, event -> {
+            event.setDeathText(Component.text(""));
+            event.getPlayer().getInventory().clear();
+            event.getPlayer().respawn();
+        });
 
         ConfigManager configManager = Blubwars.getConfigManager();
 
@@ -32,6 +36,7 @@ public class PlayerDeath {
 
                 if (team.isCatAlive()) {
                     event.setRespawnPosition(configManager.getTeamSpawn(team.getTeamType()));
+                    arena.getGame().getPlayerManager().setInventory(player,team.getTeamType());
                     return;
                 }
 

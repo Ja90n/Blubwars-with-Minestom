@@ -1,5 +1,6 @@
 package com.Ja90n.events;
 
+import com.Ja90n.Blubwars;
 import com.Ja90n.enums.TeamType;
 import com.Ja90n.shopitems.IShopItem;
 import com.Ja90n.shopitems.ShopItemFactory;
@@ -53,7 +54,9 @@ public class ShopGuiEvent {
                 case 21:
                     addPlayerItem(new IronArmorCreator(),player);
                     break;
-
+                case 12:
+                    addPlayerItem(new ChainArmorCreator(),player);
+                    break;
             }
 
         });
@@ -70,7 +73,7 @@ public class ShopGuiEvent {
             return;
         }
 
-        buySeperate(player,shopItem);
+        buySeparate(player,shopItem);
     }
 
     private boolean canBuyAtOnce(Player player,IShopItem shopItem) {
@@ -93,7 +96,7 @@ public class ShopGuiEvent {
         return false;
     }
 
-    public void buySeperate(Player player, IShopItem shopItem) {
+    public void buySeparate(Player player, IShopItem shopItem) {
         amount = shopItem.getCostAmount();
         for (int i = 0; i < player.getInventory().getSize(); i++) {
             ItemStack itemStack = player.getInventory().getItemStack(i);
@@ -117,6 +120,7 @@ public class ShopGuiEvent {
 
     private void addItem(IShopItem shopItem, Player player) {
         if (shopItem.isArmor()) {
+            Blubwars.getArena().getGame().getPlayerManager().addPlayer(player,shopItem);
             shopItem.setArmor(player);
             return;
         }

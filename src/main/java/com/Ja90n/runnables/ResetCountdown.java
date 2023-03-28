@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ResetCountdown {
 
-    private Arena arena;
+    private final Arena arena;
 
     public ResetCountdown(Arena arena) {
         this.arena = arena;
@@ -32,5 +32,4 @@ public class ResetCountdown {
                     .execute(MinecraftServer::stopCleanly);
         });
     }
-
 }

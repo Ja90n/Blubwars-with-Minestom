@@ -16,8 +16,8 @@ public class DiamondSwordItem implements IShopItem {
 
     @Override
     public ItemStack getItemStack() {
-        return ItemStack.builder(Material.IRON_SWORD)
-                .displayName(Component.text("Iron sword", NamedTextColor.GRAY))
+        return ItemStack.builder(Material.DIAMOND_SWORD)
+                .displayName(Component.text("Diamond sword", NamedTextColor.BLUE))
                 .build();
     }
 
@@ -28,6 +28,6 @@ public class DiamondSwordItem implements IShopItem {
 
     @Override
     public int inventoySlot() {
-        return 19;
+        return 28;
     }
 }

@@ -74,6 +74,10 @@ public class Blubwars {
         return world;
     }
 
+    public static Arena getArena() {
+        return arena;
+    }
+
     public static ConfigManager getConfigManager() {
         return configManager;
     }

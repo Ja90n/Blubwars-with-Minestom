@@ -49,6 +49,7 @@ public class ShopGUI {
         setBlocks();
         setWeapons();
         setTools();
+        setArmor();
     }
 
     private void setBlocks() {
@@ -59,6 +60,7 @@ public class ShopGUI {
     }
 
     private void setArmor() {
+        setItem(new ChainArmorCreator());
         setItem(new IronArmorCreator());
         setItem(new DiamondArmorCreator());
     }

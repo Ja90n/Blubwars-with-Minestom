@@ -18,7 +18,6 @@ public class Test extends Command {
 
         setDefaultExecutor((sender, context) -> {
             if (sender instanceof Player player) {
-                player.openInventory(new ShopGUI(arena.getGame().getTeamManager().getTeam(player).getTeamType()).getInventory());
             }
         });
     }

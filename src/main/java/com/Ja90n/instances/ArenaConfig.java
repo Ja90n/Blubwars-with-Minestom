@@ -21,6 +21,8 @@ public class ArenaConfig {
     private List<Pos> posList;
     private List<Cost> costs;
 
+    private List<Pos> shopLocations;
+
     public void setDefault() {
         requiredPlayers = 3;
         countdownSeconds = 20;
@@ -69,6 +71,12 @@ public class ArenaConfig {
         blueTeamSpawn = new Pos(70.5,63,0.5,90,0);
         greenTeamSpawn = new Pos(0.5, 63, 70.5,-180,0);
         yellowTeamSpawn = new Pos(-70.5,63,0.5,-90,0);
+
+        shopLocations = new ArrayList<>();
+        shopLocations.add(new Pos(4.5,63,72,90,0));
+        shopLocations.add(new Pos(-71,63,4.5,180,0));
+        shopLocations.add(new Pos(-3.5,63,-71,-90,0));
+        shopLocations.add(new Pos(72,63,-3.5,0,0));
     }
 
     public int getCountdownSeconds() {
@@ -81,6 +89,10 @@ public class ArenaConfig {
 
     public Pos getYellowTeamSpawn() {
         return yellowTeamSpawn;
+    }
+
+    public List<Pos> getShopLocations() {
+        return shopLocations;
     }
 
     public Pos getRedTeamSpawn() {
