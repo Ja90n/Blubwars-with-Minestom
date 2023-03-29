@@ -57,6 +57,7 @@ public class Blubwars {
         new PlayerBlockEvents(globalEventHandler,arena);
         new InteractEntity(globalEventHandler,arena);
         new EntityDeath(globalEventHandler,arena);
+        new PlayerInteract(globalEventHandler,arena);
 
         logger.info("Events initiated!");
     }

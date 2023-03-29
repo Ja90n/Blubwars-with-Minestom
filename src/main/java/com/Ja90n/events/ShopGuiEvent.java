@@ -5,6 +5,7 @@ import com.Ja90n.enums.TeamType;
 import com.Ja90n.shopitems.IShopItem;
 import com.Ja90n.shopitems.ShopItemFactory;
 import com.Ja90n.shopitems.creators.*;
+import com.Ja90n.shopitems.items.PickaxeItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.entity.Player;
@@ -13,8 +14,8 @@ import net.minestom.server.item.ItemStack;
 
 public class ShopGuiEvent {
 
-    private Inventory shopGUI;
-    private TeamType team;
+    private final Inventory shopGUI;
+    private final TeamType team;
     private int amount;
 
     public ShopGuiEvent(Inventory shopGUI, TeamType team) {
@@ -27,36 +28,17 @@ public class ShopGuiEvent {
             inventoryConditionResult.setCancel(true);
 
             switch (slot) {
-                case 10:
-                    addPlayerItem(new StoneSwordCreator(), player);
-                    break;
-                case 11:
-                    addPlayerItem(new WoolCreator(team),player);
-                    break;
-                case 13:
-                    addPlayerItem(new ShearsCreator(),player);
-                    break;
-                case 19:
-                    addPlayerItem(new IronSwordCreator(), player);
-                    break;
-                case 20:
-                    addPlayerItem(new ClayCreator(team), player);
-                    break;
-                case 28:
-                    addPlayerItem(new DiamondSwordCreator(), player);
-                    break;
-                case 29:
-                    addPlayerItem(new WoodCreator(),player);
-                    break;
-                case 30:
-                    addPlayerItem(new DiamondArmorCreator(),player);
-                    break;
-                case 21:
-                    addPlayerItem(new IronArmorCreator(),player);
-                    break;
-                case 12:
-                    addPlayerItem(new ChainArmorCreator(),player);
-                    break;
+                case 10 -> addPlayerItem(new StoneSwordCreator(), player);
+                case 11 -> addPlayerItem(new WoolCreator(team), player);
+                case 12 -> addPlayerItem(new ChainArmorCreator(), player);
+                case 13 -> addPlayerItem(new ShearsCreator(), player);
+                case 19 -> addPlayerItem(new IronSwordCreator(), player);
+                case 20 -> addPlayerItem(new ClayCreator(team), player);
+                case 28 -> addPlayerItem(new DiamondSwordCreator(), player);
+                case 29 -> addPlayerItem(new WoodCreator(), player);
+                case 30 -> addPlayerItem(new DiamondArmorCreator(), player);
+                case 21 -> addPlayerItem(new IronArmorCreator(), player);
+                case 22 -> addPlayerItem(new PickaxeCreator(), player);
             }
 
         });

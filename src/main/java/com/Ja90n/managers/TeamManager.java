@@ -36,7 +36,9 @@ public class TeamManager {
 
     public void spawnCats() {
         for (Team team : teams) {
-            team.spawnCat();
+            if (team.getPlayerAmount() > 0) {
+                team.spawnCat();
+            }
         }
     }
 

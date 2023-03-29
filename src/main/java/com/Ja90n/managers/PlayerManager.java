@@ -15,8 +15,12 @@ public class PlayerManager {
 
     public HashMap<UUID, IShopItem> armor;
 
+    // 0 means base and 1 means cat
+    public HashMap<UUID, Integer> respawnPreference;
+
     public PlayerManager() {
         armor = new HashMap<>();
+        respawnPreference = new HashMap<>();
     }
 
     public void addPlayer(Player player, IShopItem shopItem) {
@@ -26,6 +30,17 @@ public class PlayerManager {
     public void setInventory(Player player, TeamType teamType) {
         setTools(player);
         setArmor(player,teamType);
+    }
+
+    public void setRespawnPreference(Player player, int preference) {
+        respawnPreference.put(player.getUuid(),preference);
+    }
+
+    public int getPreference(Player player) {
+        if (!respawnPreference.containsKey(player.getUuid())) {
+            respawnPreference.put(player.getUuid(),0);
+        }
+        return respawnPreference.get(player.getUuid());
     }
 
     private void setTools(Player player) {

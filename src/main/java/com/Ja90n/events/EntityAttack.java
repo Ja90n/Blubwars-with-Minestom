@@ -31,14 +31,7 @@ public class EntityAttack {
 
                 if (teamCat.getTeam().getTeamType().equals(arena.getGame().getTeamManager().getTeam(player).getTeamType())) {
                     event.setCancelled(true);
-                    if (teamCat.getTarget() != null) {
-                        if (teamCat.getTarget().equals(player)) {
-                            return;
-                        }
-                    }
-                    teamCat.setTarget(player);
-                    player.sendMessage(Component.text("Cat claimed!", NamedTextColor.BLUE));
-                    player.playSound(Sound.sound(SoundEvent.BLOCK_LEVER_CLICK, Sound.Source.MASTER,1f,1f));
+                    player.openInventory(teamCat.getCatChest());
                 }
             } else if (event.getTarget() instanceof Player target) {
                 if (!(event.getEntity() instanceof Player player)){

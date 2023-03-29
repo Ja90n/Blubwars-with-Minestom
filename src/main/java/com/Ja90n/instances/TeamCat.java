@@ -3,11 +3,14 @@ package com.Ja90n.instances;
 import com.Ja90n.Blubwars;
 import com.Ja90n.runnables.CatMovementRunnable;
 import com.Ja90n.runnables.CatRespawn;
+import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.EntityCreature;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.metadata.animal.tameable.CatMeta;
 import net.minestom.server.instance.Instance;
+import net.minestom.server.inventory.Inventory;
+import net.minestom.server.inventory.InventoryType;
 
 public class TeamCat {
 
@@ -18,10 +21,16 @@ public class TeamCat {
     private CatMovementRunnable catMovementRunnable;
     private EntityCreature cat;
     private int lives;
+    private Inventory catChest;
 
     public TeamCat(Team team) {
         this.team = team;
+        catChest = new Inventory(InventoryType.CHEST_3_ROW, Component.text("Cat chest"));
         instance = Blubwars.getWorld().getInstance();
+    }
+
+    public Inventory getCatChest() {
+        return catChest;
     }
 
     public void spawnCat() {

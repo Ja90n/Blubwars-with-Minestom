@@ -67,7 +67,7 @@ public class Game {
 
 
     public void end() {
-        new ResetCountdown(arena);
+        new ResetCountdown(arena).end();
     }
 
     public void won(TeamType team) {

@@ -2,6 +2,7 @@ com\Ja90n\shopitems\items\ClayItem.class
 com\Ja90n\managers\VillagerManager.class
 com\Ja90n\shopitems\items\StoneSwordItem.class
 com\Ja90n\shopitems\creators\WoodCreator.class
+com\Ja90n\runnables\PlayerRespawn.class
 com\Ja90n\shopitems\creators\WoolCreator.class
 com\Ja90n\managers\PlayerManager.class
 com\Ja90n\shopitems\items\WoodItem.class
@@ -13,10 +14,12 @@ com\Ja90n\shopitems\ShopItemFactory.class
 com\Ja90n\shopitems\items\IronSwordItem.class
 com\Ja90n\shopitems\IShopItem.class
 com\Ja90n\shopitems\items\ChainArmorItem.class
+com\Ja90n\shopitems\items\PickaxeItem.class
 com\Ja90n\shopitems\creators\IronSwordCreator.class
 com\Ja90n\shopitems\creators\IronArmorCreator.class
 com\Ja90n\shopitems\creators\DiamondArmorCreator.class
 com\Ja90n\shopitems\items\DiamondArmorItem.class
+com\Ja90n\shopitems\creators\PickaxeCreator.class
 com\Ja90n\shopitems\creators\ChainArmorCreator.class
 com\Ja90n\shopitems\creators\ClayCreator.class
 com\Ja90n\instances\ShopVillager.class
@@ -24,3 +27,4 @@ com\Ja90n\shopitems\creators\StoneSwordCreator.class
 com\Ja90n\events\ShopGuiEvent.class
 com\Ja90n\shopitems\creators\ShearsCreator.class
 com\Ja90n\shopitems\items\ShearsItem.class
+com\Ja90n\events\PlayerInteract.class

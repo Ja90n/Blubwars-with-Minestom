@@ -74,6 +74,7 @@ public class ShopGUI {
 
     private void setTools() {
         setItem(new ShearsCreator());
+        setItem(new PickaxeCreator());
     }
 
     private void setItem(ShopItemFactory shopItemFactory) {

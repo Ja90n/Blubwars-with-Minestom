@@ -1,5 +1,6 @@
 package com.Ja90n.events;
 
+import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.ItemEntity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
@@ -12,6 +13,11 @@ public class ItemEvents {
 
     public ItemEvents(GlobalEventHandler globalEventHandler){
         globalEventHandler.addListener(ItemDropEvent.class, event -> {
+
+            if (event.getPlayer().getGameMode().equals(GameMode.SPECTATOR)) {
+                return;
+            }
+
             ItemStack item = event.getItemStack();
 
             ItemEntity itemEntity = new ItemEntity(item);
