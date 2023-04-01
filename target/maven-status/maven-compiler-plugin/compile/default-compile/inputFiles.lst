@@ -8,9 +8,11 @@ C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\s
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\events\PlayerDeath.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\events\ShopGuiEvent.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\instances\Cuboid.java
+C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\runnables\PlayerRespawn.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\IShopItem.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\items\WoodItem.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\command\Gamemode.java
+C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\instances\ShopVillager.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\managers\TeamManager.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\creators\StoneSwordCreator.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\enums\TeamType.java
@@ -27,9 +29,11 @@ C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\e
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\instances\TeamCat.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\managers\BlockManager.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\items\ShearsItem.java
+C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\events\PlayerInteract.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\instances\Game.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\creators\WoodCreator.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\items\DiamondArmorItem.java
+C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\creators\PickaxeCreator.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\command\Test.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\enums\Cost.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\items\WoolItem.java
@@ -43,6 +47,7 @@ C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\s
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\runnables\CatRespawn.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\items\ClayItem.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\command\Restart.java
+C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\managers\VillagerManager.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\creators\ClayCreator.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\runnables\GameCountdown.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\events\PlayerJoin.java
@@ -54,3 +59,5 @@ C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\i
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\creators\IronSwordCreator.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\items\IronSwordItem.java
 C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\creators\DiamondSwordCreator.java
+C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\managers\PlayerManager.java
+C:\Users\jadon\Documents\GitHub\Blubwars-with-Minestom\src\main\java\com\Ja90n\shopitems\items\PickaxeItem.java

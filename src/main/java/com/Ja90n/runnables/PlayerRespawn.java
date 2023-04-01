@@ -3,7 +3,6 @@ package com.Ja90n.runnables;
 import com.Ja90n.Blubwars;
 import com.Ja90n.enums.TeamType;
 import com.Ja90n.instances.Arena;
-import com.Ja90n.instances.Game;
 import com.Ja90n.instances.Team;
 import com.Ja90n.managers.TeamManager;
 import net.kyori.adventure.text.Component;
@@ -68,20 +67,18 @@ public class PlayerRespawn {
     }
 
     private void respawnPlayer() {
-        if (team.isCatAlive()) {
-            player.setGameMode(GameMode.SURVIVAL);
-            arena.getGame().getPlayerManager().setInventory(player,team.getTeamType());
+        player.setGameMode(GameMode.SURVIVAL);
+        arena.getGame().getPlayerManager().setInventory(player,team.getTeamType());
 
-            if (arena.getGame().getPlayerManager().getPreference(player) == 0) {
-                player.teleport(Blubwars.getConfigManager().getTeamSpawn(team.getTeamType()));
-            } else {
-                player.teleport(teamManager.getTeam(player).getTeamCat().getCat().getPosition());
-            }
+        if (arena.getGame().getPlayerManager().getPreference(player) == 0) {
+            player.teleport(Blubwars.getConfigManager().getTeamSpawn(team.getTeamType()));
+            return;
         }
 
+        player.teleport(teamManager.getTeam(player).getTeamCat().getCat().getPosition());
     }
 
-    private boolean checkLastTeamAlive() {
+    private void checkLastTeamAlive() {
         int aliveTeams = 0;
         for (Team team1 : teamManager.getTeams()) {
             if (team1.getPlayerAmount() > 0) {
@@ -96,9 +93,7 @@ public class PlayerRespawn {
                 }
             }
             arena.getGame().end();
-            return true;
         }
-        return false;
     }
 
 
