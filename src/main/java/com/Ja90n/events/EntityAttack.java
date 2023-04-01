@@ -43,6 +43,10 @@ public class EntityAttack {
                     return;
                 }
 
+                if (target.getGameMode().equals(GameMode.ADVENTURE)) {
+                    return;
+                }
+
                 Team team = arena.getGame().getTeamManager().getTeam(player);
                 Team targetTeam = arena.getGame().getTeamManager().getTeam(target);
                 if (team.equals(targetTeam)) {

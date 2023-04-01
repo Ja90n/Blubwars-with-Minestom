@@ -124,4 +124,8 @@ public class ConfigManager {
         }
     }
 
+    public Pos getRespawnLocation() {
+        return arenaConfig.getRespawnLocation();
+    }
+
 }

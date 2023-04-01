@@ -20,12 +20,12 @@ public class PlayerDeath {
             event.setDeathText(Component.text(""));
             event.getPlayer().getInventory().clear();
             event.getPlayer().respawn();
-            event.getPlayer().teleport(configManager.getLobbyLocation());
+            event.getPlayer().teleport(Blubwars.getConfigManager().getRespawnLocation());
         });
 
         globalEventHandler.addListener(PlayerRespawnEvent.class, event -> {
-            event.setRespawnPosition(configManager.getLobbyLocation());
-            event.getPlayer().teleport(configManager.getLobbyLocation());
+            event.setRespawnPosition(Blubwars.getConfigManager().getRespawnLocation());
+            event.getPlayer().teleport(Blubwars.getConfigManager().getRespawnLocation());
             new PlayerRespawn(event.getPlayer(), arena);
         });
     }

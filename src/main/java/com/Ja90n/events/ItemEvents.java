@@ -14,7 +14,7 @@ public class ItemEvents {
     public ItemEvents(GlobalEventHandler globalEventHandler){
         globalEventHandler.addListener(ItemDropEvent.class, event -> {
 
-            if (event.getPlayer().getGameMode().equals(GameMode.SPECTATOR)) {
+            if (event.getPlayer().getGameMode().equals(GameMode.ADVENTURE)) {
                 return;
             }
 

@@ -11,6 +11,8 @@ import net.kyori.adventure.title.Title;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
+import net.minestom.server.item.ItemStack;
+import net.minestom.server.item.Material;
 import net.minestom.server.timer.Task;
 import net.minestom.server.timer.TaskSchedule;
 
@@ -33,12 +35,14 @@ public class PlayerRespawn {
     }
 
     public void start() {
-        player.setGameMode(GameMode.SPECTATOR);
-        player.teleport(Blubwars.getConfigManager().getLobbyLocation());
+        player.setGameMode(GameMode.ADVENTURE);
+        player.teleport(Blubwars.getConfigManager().getRespawnLocation());
 
         if (!team.isCatAlive()) {
             team.removePlayer(player);
             teamManager.addPlayer(player, TeamType.SPECTATOR);
+
+            player.setGameMode(GameMode.SPECTATOR);
 
             player.showTitle(Title.title(Component.text("You have been eliminated!", NamedTextColor.RED),
                     Component.text("You are now a spectator!")));
@@ -48,10 +52,14 @@ public class PlayerRespawn {
             return;
         }
 
+        player.getInventory().addItemStack(ItemStack.builder(Material.OAK_DOOR).build());
+        player.getInventory().addItemStack(ItemStack.builder(Material.CAT_SPAWN_EGG).build());
+
         timesRun = 7;
         task = MinecraftServer.getSchedulerManager().scheduleTask(() -> {
 
             if (timesRun <= 0) {
+                player.getInventory().clear();
                 respawnPlayer();
                 task.cancel();
                 player.showTitle(Title.title(Component.text(" "),Component.text(" ")));

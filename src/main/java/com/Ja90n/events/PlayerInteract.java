@@ -12,7 +12,7 @@ public class PlayerInteract {
     public PlayerInteract(GlobalEventHandler globalEventHandler, Arena arena) {
         globalEventHandler.addListener(PlayerUseItemEvent.class, event -> {
 
-            if (!event.getPlayer().getGameMode().equals(GameMode.SPECTATOR)) {
+            if (!event.getPlayer().getGameMode().equals(GameMode.ADVENTURE)) {
                 return;
             }
 
@@ -25,6 +25,8 @@ public class PlayerInteract {
             } else if (event.getItemStack().material().equals(Material.CAT_SPAWN_EGG)) {
                 arena.getGame().getPlayerManager().setRespawnPreference(event.getPlayer(),1);
             }
+
+            event.setCancelled(true);
         });
     }
 }

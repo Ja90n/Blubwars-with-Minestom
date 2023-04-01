@@ -13,6 +13,8 @@ public class ArenaConfig {
     private int countdownSeconds;
 
     private Pos lobbyLocation;
+    private Pos respawnLocation;
+
     private Pos redTeamSpawn;
     private Pos greenTeamSpawn;
     private Pos blueTeamSpawn;
@@ -67,6 +69,8 @@ public class ArenaConfig {
         costs.add(Cost.PUFFERFISH);
 
         lobbyLocation = new Pos(0.5,103,0.5);
+        respawnLocation = new Pos(0.5,80,0.5);
+
         redTeamSpawn = new Pos(0.5,63,-70.5, 0, 0);
         blueTeamSpawn = new Pos(70.5,63,0.5,90,0);
         greenTeamSpawn = new Pos(0.5, 63, 70.5,-180,0);
@@ -117,5 +121,9 @@ public class ArenaConfig {
 
     public List<Cost> getTypes() {
         return costs;
+    }
+
+    public Pos getRespawnLocation() {
+        return respawnLocation;
     }
 }
