@@ -52,8 +52,11 @@ public class PlayerRespawn {
             return;
         }
 
-        player.getInventory().addItemStack(ItemStack.builder(Material.OAK_DOOR).build());
-        player.getInventory().addItemStack(ItemStack.builder(Material.CAT_SPAWN_EGG).build());
+        // Add selecting items (see events.PlayerInteract)
+        player.getInventory().addItemStack(ItemStack.builder(Material.OAK_DOOR)
+                .displayName(Component.text("Respawn at base",NamedTextColor.BLUE)).build());
+        player.getInventory().addItemStack(ItemStack.builder(Material.CAT_SPAWN_EGG)
+                .displayName(Component.text("Respawn at cat",NamedTextColor.GREEN)).build());
 
         timesRun = 7;
         task = MinecraftServer.getSchedulerManager().scheduleTask(() -> {
