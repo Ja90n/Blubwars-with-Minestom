@@ -5,10 +5,11 @@ import com.Ja90n.enums.TeamType;
 import com.Ja90n.shopitems.IShopItem;
 import com.Ja90n.shopitems.ShopItemFactory;
 import com.Ja90n.shopitems.creators.*;
-import com.Ja90n.shopitems.items.PickaxeItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.entity.Player;
+import net.minestom.server.event.inventory.InventoryClickEvent;
+import net.minestom.server.event.inventory.InventoryPreClickEvent;
 import net.minestom.server.inventory.Inventory;
 import net.minestom.server.item.ItemStack;
 
@@ -24,10 +25,11 @@ public class ShopGuiEvent {
     }
 
     public void setEvent() {
-        shopGUI.addInventoryCondition((player, slot, clickType, inventoryConditionResult) -> {
-            inventoryConditionResult.setCancel(true);
+        shopGUI.eventNode().addListener(InventoryPreClickEvent.class, event -> {
+            event.setCancelled(true);
+            Player player = event.getPlayer();
 
-            switch (slot) {
+            switch (event.getSlot()) {
                 case 10 -> addPlayerItem(new StoneSwordCreator(), player);
                 case 11 -> addPlayerItem(new WoolCreator(team), player);
                 case 12 -> addPlayerItem(new ChainArmorCreator(), player);
@@ -40,8 +42,8 @@ public class ShopGuiEvent {
                 case 21 -> addPlayerItem(new IronArmorCreator(), player);
                 case 22 -> addPlayerItem(new PickaxeCreator(), player);
             }
-
         });
+
     }
 
     private void addPlayerItem(ShopItemFactory factory, Player player) {
@@ -66,7 +68,7 @@ public class ShopGuiEvent {
                 if (shopItem.getCostAmount() <= itemStack.amount()) {
                     ItemStack item = ItemStack.builder(
                                     itemStack.material())
-                            .displayName(itemStack.getDisplayName())
+                            .customName(Component.text(itemStack.material().name()))
                             .amount(itemStack.amount() - shopItem.getCostAmount()).build();
 
                     player.getInventory().setItemStack(i, item);
@@ -88,7 +90,7 @@ public class ShopGuiEvent {
                     amount = amount*-1;
                     ItemStack item = ItemStack.builder(
                                     itemStack.material())
-                            .displayName(itemStack.getDisplayName())
+                            .customName(Component.text(itemStack.material().name()))
                             .amount(amount).build();
 
                     player.getInventory().setItemStack(i, item);

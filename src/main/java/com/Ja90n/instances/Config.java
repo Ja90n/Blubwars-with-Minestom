@@ -1,7 +1,5 @@
 package com.Ja90n.instances;
 
-import net.minestom.server.extras.velocity.VelocityProxy;
-import net.minestom.server.network.socket.Server;
 
 import java.lang.reflect.Proxy;
 import java.security.Permission;

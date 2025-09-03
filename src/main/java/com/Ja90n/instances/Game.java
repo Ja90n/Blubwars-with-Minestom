@@ -50,7 +50,7 @@ public class Game {
         }
 
         for (UUID uuid : arena.getPlayers()){
-            Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
+            Player player = MinecraftServer.getConnectionManager().getOnlinePlayerByUuid(uuid);
             player.setGameMode(GameMode.SURVIVAL);
             player.closeInventory();
             player.clearEffects();

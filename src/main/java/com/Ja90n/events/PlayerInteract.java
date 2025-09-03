@@ -6,6 +6,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
+import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerUseItemEvent;
 import net.minestom.server.item.Material;
@@ -20,7 +21,7 @@ public class PlayerInteract {
                 return;
             }
 
-            if (!event.getHand().equals(Player.Hand.MAIN)) {
+            if (!event.getHand().equals(PlayerHand.MAIN)) {
                 return;
             }
 

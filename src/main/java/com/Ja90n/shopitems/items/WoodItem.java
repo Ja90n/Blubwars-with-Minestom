@@ -17,7 +17,7 @@ public class WoodItem implements IShopItem {
     @Override
     public ItemStack getItemStack() {
         return ItemStack.builder(Material.SPRUCE_PLANKS)
-                .displayName(Component.text("Wood", NamedTextColor.GOLD))
+                .customName(Component.text("Wood", NamedTextColor.GOLD))
                 .amount(3)
                 .build();
     }

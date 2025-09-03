@@ -2,11 +2,10 @@ package com.Ja90n.managers;
 
 import com.Ja90n.enums.TeamType;
 import com.Ja90n.shopitems.IShopItem;
+import net.minestom.server.entity.EquipmentSlot;
 import net.minestom.server.entity.Player;
-import net.minestom.server.item.ItemMeta;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import net.minestom.server.item.metadata.LeatherArmorMeta;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -48,28 +47,24 @@ public class PlayerManager {
     }
 
     private void setArmor(Player player, TeamType teamType) {
-        ItemMeta leatherArmorMeta = new LeatherArmorMeta.Builder().color(teamType.getColor()).build();
 
         ItemStack helmet = ItemStack.builder(Material.LEATHER_HELMET)
-                .meta(leatherArmorMeta)
                 .build();
 
         ItemStack chestplate = ItemStack.builder(Material.LEATHER_CHESTPLATE)
-                .meta(leatherArmorMeta)
                 .build();
 
         ItemStack leggings = ItemStack.builder(Material.LEATHER_LEGGINGS)
-                .meta(leatherArmorMeta)
                 .build();
 
         ItemStack boots = ItemStack.builder(Material.LEATHER_BOOTS)
-                .meta(leatherArmorMeta)
                 .build();
 
-        player.getInventory().setHelmet(helmet);
-        player.getInventory().setChestplate(chestplate);
-        player.getInventory().setLeggings(leggings);
-        player.getInventory().setBoots(boots);
+        player.getInventory().setEquipment(EquipmentSlot.BOOTS, (byte) 0,helmet);
+        player.getInventory().setEquipment(EquipmentSlot.CHESTPLATE, (byte) 0,chestplate);
+        player.getInventory().setEquipment(EquipmentSlot.LEGGINGS, (byte) 0,leggings);
+        player.getInventory().setEquipment(EquipmentSlot.BOOTS, (byte) 0,boots);
+
 
         if (armor.containsKey(player.getUuid())) {
             armor.get(player.getUuid()).setArmor(player);

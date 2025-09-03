@@ -1,15 +1,15 @@
 {
-  "minecraft:recipes/decorations/brown_stained_glass_pane": {
+  "minecraft:recipes/decorations/crafting_table": {
     "criteria": {
-      "has_glass": "2023-03-12 15:09:23 +0100"
+      "unlock_right_away": "2025-09-03 17:20:23 +0200"
     },
     "done": true
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
-      "minecraft:forest": "2023-03-12 15:09:14 +0100"
+      "minecraft:forest": "2025-09-03 17:20:23 +0200"
     },
     "done": false
   },
-  "DataVersion": 3120
+  "DataVersion": 4440
 }

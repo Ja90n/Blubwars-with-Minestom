@@ -16,7 +16,7 @@ public class ShearsItem implements IShopItem {
     @Override
     public ItemStack getItemStack() {
         return ItemStack.builder(Material.SHEARS)
-                .displayName(Component.text("Shears"))
+                .customName(Component.text("Shears"))
                 .build();
     }
 

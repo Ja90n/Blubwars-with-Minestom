@@ -17,7 +17,7 @@ public class DiamondSwordItem implements IShopItem {
     @Override
     public ItemStack getItemStack() {
         return ItemStack.builder(Material.DIAMOND_SWORD)
-                .displayName(Component.text("Diamond sword", NamedTextColor.BLUE))
+                .customName(Component.text("Diamond sword", NamedTextColor.BLUE))
                 .build();
     }
 

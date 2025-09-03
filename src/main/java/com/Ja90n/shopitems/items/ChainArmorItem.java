@@ -2,6 +2,7 @@ package com.Ja90n.shopitems.items;
 
 import com.Ja90n.enums.Cost;
 import com.Ja90n.shopitems.IShopItem;
+import net.minestom.server.entity.EquipmentSlot;
 import net.minestom.server.entity.Player;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
@@ -35,7 +36,7 @@ public class ChainArmorItem implements IShopItem {
 
     @Override
     public void setArmor(Player player) {
-        player.getInventory().setBoots(ItemStack.builder(Material.CHAINMAIL_BOOTS).build());
-        player.getInventory().setLeggings(ItemStack.builder(Material.CHAINMAIL_LEGGINGS).build());
+        player.getInventory().setEquipment(EquipmentSlot.BOOTS, (byte) 0,ItemStack.builder(Material.CHAINMAIL_BOOTS).build());
+        player.getInventory().setEquipment(EquipmentSlot.LEGGINGS, (byte) 0,ItemStack.builder(Material.CHAINMAIL_LEGGINGS).build());
     }
 }

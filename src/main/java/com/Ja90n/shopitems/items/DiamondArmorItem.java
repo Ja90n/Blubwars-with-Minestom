@@ -4,6 +4,7 @@ import com.Ja90n.enums.Cost;
 import com.Ja90n.shopitems.IShopItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.minestom.server.entity.EquipmentSlot;
 import net.minestom.server.entity.Player;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
@@ -18,7 +19,7 @@ public class DiamondArmorItem implements IShopItem {
     @Override
     public ItemStack getItemStack() {
         return ItemStack.builder(Material.DIAMOND_BOOTS)
-                .displayName(Component.text("Diamond armor", NamedTextColor.BLUE))
+                .customName(Component.text("Diamond armor", NamedTextColor.BLUE))
                 .build();
     }
 
@@ -39,7 +40,7 @@ public class DiamondArmorItem implements IShopItem {
 
     @Override
     public void setArmor(Player player) {
-        player.getInventory().setBoots(ItemStack.builder(Material.DIAMOND_BOOTS).build());
-        player.getInventory().setLeggings(ItemStack.builder(Material.DIAMOND_LEGGINGS).build());
+        player.getInventory().setEquipment(EquipmentSlot.BOOTS, (byte) 0,ItemStack.builder(Material.DIAMOND_BOOTS).build());
+        player.getInventory().setEquipment(EquipmentSlot.LEGGINGS, (byte) 0,ItemStack.builder(Material.DIAMOND_LEGGINGS).build());
     }
 }

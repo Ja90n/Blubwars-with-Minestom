@@ -86,7 +86,7 @@ public class Arena {
 
     public void sendTitle(Component title1, Component title2){
         for (UUID uuid : players){
-            Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
+            Player player = MinecraftServer.getConnectionManager().getOnlinePlayerByUuid(uuid);
             Title title = Title.title(title1,title2);
             player.showTitle(title);
         }
@@ -94,7 +94,7 @@ public class Arena {
 
     public void sendMessage(Component textComponent){
         for (UUID uuid : players){
-            Player player = MinecraftServer.getConnectionManager().getPlayer(uuid);
+            Player player = MinecraftServer.getConnectionManager().getOnlinePlayerByUuid(uuid);
             player.sendMessage(textComponent);
         }
     }

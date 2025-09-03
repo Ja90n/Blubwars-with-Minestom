@@ -44,7 +44,7 @@ public class Dropper {
             armorStandMeta.setCustomName(type.getComponent().append(Component.text(" dropping in: ").append(Component.text(ticksToDrop))));
         }
         if (ticksToDrop <= 0) {
-            ItemStack item = ItemStack.builder(type.getMaterial()).displayName(type.getComponent()).build();
+            ItemStack item = ItemStack.builder(type.getMaterial()).customName(type.getComponent()).build();
             ItemEntity itemEntity = new ItemEntity(item);
             itemEntity.setPickupDelay(40, TimeUnit.SERVER_TICK);
             itemEntity.setInstance(instance, pos);

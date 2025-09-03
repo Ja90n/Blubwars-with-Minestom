@@ -22,7 +22,7 @@ public class WoolItem implements IShopItem {
     @Override
     public ItemStack getItemStack() {
         return ItemStack.builder(team.getWool())
-                .displayName(team.getDisplay().append(Component.text(" wool")))
+                .customName(team.getDisplay().append(Component.text(" wool")))
                 .amount(4)
                 .build();
     }

@@ -17,7 +17,7 @@ public class StoneSwordItem implements IShopItem {
     @Override
     public ItemStack getItemStack() {
         return ItemStack.builder(Material.STONE_SWORD)
-                .displayName(Component.text("Stone sword", NamedTextColor.DARK_GRAY))
+                .customName(Component.text("Stone sword", NamedTextColor.DARK_GRAY))
                 .build();
     }
 

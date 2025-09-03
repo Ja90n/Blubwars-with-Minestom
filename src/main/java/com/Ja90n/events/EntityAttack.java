@@ -4,18 +4,13 @@ import com.Ja90n.enums.GameState;
 import com.Ja90n.instances.Arena;
 import com.Ja90n.instances.Team;
 import com.Ja90n.instances.TeamCat;
-import io.github.bloepiloepi.pvp.events.FinalAttackEvent;
-import net.kyori.adventure.sound.Sound;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.entity.*;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.sound.SoundEvent;
 
 public class EntityAttack {
 
     public EntityAttack(GlobalEventHandler globalEventHandler, Arena arena) {
-        globalEventHandler.addListener(FinalAttackEvent.class, event -> {
+        globalEventHandler.addListener(io.github.togar2.pvp.events.FinalAttackEvent.class, event -> {
 
             if (event.getTarget().getEntityType().equals(EntityType.CAT)) {
                 EntityCreature entityCreature = (EntityCreature) event.getTarget();

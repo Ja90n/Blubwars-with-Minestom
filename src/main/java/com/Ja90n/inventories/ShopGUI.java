@@ -24,6 +24,7 @@ public class ShopGUI {
     private final ShopGuiEvent shopGuiEvent;
 
     public ShopGUI(TeamType team) {
+
         inventory = new Inventory(InventoryType.CHEST_5_ROW, Component.text("Shop", NamedTextColor.LIGHT_PURPLE));
         this.team = team;
         setupGUI();
@@ -38,7 +39,7 @@ public class ShopGUI {
 
     private void setFrame() {
         ItemStack frame = ItemStack.builder(Material.PINK_STAINED_GLASS_PANE)
-                .displayName(Component.text(" "))
+                .customName(Component.text(" "))
                 .build();
         for (int i : new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44}) {
             inventory.setItemStack(i, frame);
@@ -88,7 +89,7 @@ public class ShopGUI {
         lore.add(component);
 
         ItemStack itemStack = ItemStack.builder(shopItem.getItemStack().material())
-                .displayName(shopItem.getItemStack().getDisplayName())
+                .customName(Component.text(shopItem.getItemStack().material().name()))
                 .lore(lore)
                 .build();
 

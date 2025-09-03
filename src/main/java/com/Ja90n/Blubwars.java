@@ -1,5 +1,6 @@
 package com.Ja90n;
 
+
 import com.Ja90n.command.Gamemode;
 import com.Ja90n.command.Restart;
 import com.Ja90n.command.Test;
@@ -7,14 +8,16 @@ import com.Ja90n.events.*;
 import com.Ja90n.instances.Arena;
 import com.Ja90n.instances.World;
 import com.Ja90n.managers.ConfigManager;
-import io.github.bloepiloepi.pvp.PvpExtension;
+import io.github.togar2.pvp.MinestomPvP;
+import io.github.togar2.pvp.feature.CombatFeatureSet;
+import io.github.togar2.pvp.feature.CombatFeatures;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
+import net.minestom.server.Auth;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.CommandManager;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.extras.velocity.VelocityProxy;
 
 import java.io.IOException;
 
@@ -27,7 +30,9 @@ public class Blubwars {
     private static Arena arena;
 
     public static void main(String[] args) throws IOException {
-        MinecraftServer minecraftServer = MinecraftServer.init();
+
+        MinecraftServer minecraftServer = MinecraftServer.init(new Auth.Online());
+
         logger = MinecraftServer.LOGGER;
 
         configManager = new ConfigManager(logger);
@@ -38,12 +43,10 @@ public class Blubwars {
         initiateEvents(MinecraftServer.getGlobalEventHandler());
         initiateCommands(MinecraftServer.getCommandManager());
 
-        if (configManager.getVelocity()){
-            VelocityProxy.enable(configManager.getForwardingSecret());
-        }
+        MinestomPvP.init();
 
-        PvpExtension.init();
-        MinecraftServer.getGlobalEventHandler().addChild(PvpExtension.events());
+        CombatFeatureSet modernVanilla = CombatFeatures.modernVanilla();
+        MinecraftServer.getGlobalEventHandler().addChild(modernVanilla.createNode());
 
         minecraftServer.start(configManager.getHost(),configManager.getPort());
         logger.info("Server stated!");

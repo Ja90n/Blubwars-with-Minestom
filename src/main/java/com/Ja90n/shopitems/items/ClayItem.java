@@ -22,7 +22,7 @@ public class ClayItem implements IShopItem {
     @Override
     public ItemStack getItemStack() {
         return ItemStack.builder(team.getClay())
-                .displayName(team.getDisplay().append(Component.text(" clay")))
+                .customName(team.getDisplay().append(Component.text(" clay")))
                 .amount(2)
                 .build();
     }

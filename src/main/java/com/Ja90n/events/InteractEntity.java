@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.entity.EntityCreature;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
+import net.minestom.server.entity.PlayerHand;
 import net.minestom.server.entity.metadata.animal.tameable.CatMeta;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerEntityInteractEvent;
@@ -29,7 +30,7 @@ public class InteractEntity {
                 return;
             }
 
-            if (!event.getHand().equals(Player.Hand.MAIN)) {
+            if (!event.getHand().equals(PlayerHand.MAIN)) {
                 return;
             }
 
